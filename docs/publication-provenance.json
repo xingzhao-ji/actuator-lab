@@ -1,0 +1,121 @@
+{
+  "kind": "publication transformations; historical manifests remain historical",
+  "historical_date": "2026-10-23",
+  "publication_date": "2026-11-06",
+  "transformations": [
+    {
+      "file": "Makefile",
+      "reason": "standalone venv default and consistent exported cache location; numerical build flags unchanged",
+      "source_sha256": "d0dab2473f42df05f668d20cd02956f9ad60674283a2d1f927ace0f7871f32da",
+      "published_sha256": "e170317d2208afcd481e623cd7cee1a8125c16cc92680611bddc0ac4a5fe225b"
+    },
+    {
+      "file": "evidence/final-checks.txt",
+      "reason": "historical log path redaction only; output/test results unchanged",
+      "source_sha256": "9d06c74d62c37c05ab16314865054175355925b4c4a61644bc1a4a7b0d9308f8",
+      "published_sha256": "c14301f0fbda4bc87d112d06d2a6fb983c506d680054f606ebb32b913fcf96c0"
+    },
+    {
+      "file": "evidence/independent-review-tests.txt",
+      "reason": "historical log path redaction only; output/test results unchanged",
+      "source_sha256": "983ddea19430f675a3f8af19bd3b516591e91f284230ec323f3799e29de42254",
+      "published_sha256": "d6b67ac9f7c6f5d8e29c44bbbfd4739da267954c7e3999513769a20aa2d7e345"
+    },
+    {
+      "file": "python/report.py",
+      "reason": "standalone reproduction command only; report numerical content and embedded figures unchanged",
+      "source_sha256": "2bc7c7a84260ce18bf302c15d7bae64d7b6c3b98e7d235c0928cab4bcc24036f",
+      "published_sha256": "a8b73d08243a6a94e82ef6903b4a2c4bb81670017a74174bcabe2d2937699bab"
+    },
+    {
+      "file": "evidence/report.html",
+      "reason": "standalone reproduction command only; report numerical content and embedded figures unchanged",
+      "source_sha256": "012bfa4d5fe4bff0ed844ef92c7a7e1c932140a3f2fccf36052e60636c041656",
+      "published_sha256": "ea3480ccef006440b26a98dcbd103808b290288cee0099f1538ea9fd7cc0530a"
+    },
+    {
+      "file": "docs/derivation.md",
+      "reason": "remove private job-qualification framing",
+      "source_sha256": "ed10abfd3a096379945bb9f09a40f6d171243326d9565e20c9637b59fdab699f",
+      "published_sha256": "9d3160cbebd57b3458a230b6aa259e641bffee6a91a4eae9b981202d1685aa22"
+    },
+    {
+      "file": "docs/design.md",
+      "reason": "remove internal planning and job references, adapt setup, and disclose planned-versus-delivered metrics",
+      "source_sha256": "e4b47c3650478f27caf57e656e8a8d947ed31c38379232e90acd8ab41ce51b02",
+      "published_sha256": "2697561956246d5c44db8ef1b606bf239799120f50b71c84b65ab7da5f4cf43f"
+    },
+    {
+      "file": "docs/independent-employer-review.md",
+      "reason": "retain technical review; remove private hiring comparison; label AI review and historical commands",
+      "source_sha256": "65cb0f965310fe6cd0c77721e9aca1516e8390e1c4dc35c5b7e7b6bc002074dc",
+      "published_sha256": "ce12193db65e524a15cb8284e37bf469534b8a7ab58ac22aeb38e07c9f722bf6"
+    },
+    {
+      "file": "docs/acceptance-addendum.md",
+      "reason": "remove private qualification scores and clarify separate historical versus publication provenance",
+      "source_sha256": "8befb98ef728a57a5bb99a4f4d8d8fd0254c62449a5d153a9040f3def2dc6265",
+      "published_sha256": "4f986974edb362e75df8eea9d4cbcf6c3481711c5350622467cd14bb402740d0"
+    },
+    {
+      "file": "README.md",
+      "reason": "standalone installation/testing instructions, fresh versus historical evidence distinction, remove private portfolio workflow links",
+      "source_sha256": "0805ee5405a1dd83915412fff13cfb513d6eed697c8420852fad0cb7dd993dbb",
+      "published_sha256": "4140b8f19df12efee5f92ffb6b484511dcecc9224df76d7251dc132a79c9452c"
+    },
+    {
+      "file": "requirements.txt",
+      "reason": "declare core runtime/test and plotting support dependencies from accepted environment",
+      "source_sha256": null,
+      "published_sha256": "61b323a579a2a44da11895f350a3b8cc16b374e88a53f0503d6af5536959b26e"
+    },
+    {
+      "file": ".gitignore",
+      "reason": "exclude local runtime and Python caches",
+      "source_sha256": null,
+      "published_sha256": "cfbf7841e9ba02bac80022f22215087b64068938649b6623f9e13adc11e7e399"
+    },
+    {
+      "file": "evidence/README.md",
+      "reason": "new explicit historical/publication evidence boundary",
+      "source_sha256": null,
+      "published_sha256": "d5b750a594eb982564eeb42a1899f39fbc8ad67f75b5715f5b338f4d9905dc6c"
+    },
+    {
+      "file": "THIRD_PARTY_NOTICES.md",
+      "reason": "attribute embedded third-party font subsets without assigning project license",
+      "source_sha256": null,
+      "published_sha256": "bf9478e79abb762efa8d8747ec0f3c5c53e5a2ea6d1ccacf33d9a2668a513ff4"
+    },
+    {
+      "file": "scripts/manifest.py",
+      "reason": "exclude Git metadata and checkout-local Python environments/caches from regenerated artifact manifest; numerical gates unchanged",
+      "source_sha256": "832a184e7628969066a9e1ea67dd3ae660a74e43490156c0a519f7c05ee7d23c",
+      "published_sha256": "8e93426b5e69dbe2465f305eaf64d2b2018e3750beb2d2364a88f1dc1e2d3287"
+    },
+    {
+      "file": "evidence/publication-checks.txt",
+      "reason": "new publication test log copied from private runtime with absolute runtime path replaced; no test outcomes changed",
+      "source_sha256": "a5942e950b4a5c99d068fecddcc06c628bc9d20de15e0d0e03e3c45aec33ecd2",
+      "published_sha256": "29997af56df6070ffa400b178ddc9622e9e941b43f7e164a026e81a4c35b1289"
+    }
+  ],
+  "excluded_source_files": {
+    "docs/implementation-plan.md": "internal implementation workflow",
+    "docs/progress.md": "internal execution ledger superseded by acceptance",
+    "docs/root-design-review.md": "internal agent design workflow",
+    "scripts/__pycache__/guard.cpython-312.pyc": "Python bytecode cache",
+    "tests/__pycache__/test_experiments.cpython-312-pytest-8.4.2.pyc": "Python bytecode cache",
+    "tests/__pycache__/test_cli.cpython-312-pytest-8.4.2.pyc": "Python bytecode cache",
+    "tests/__pycache__/test_reference.cpython-312-pytest-8.4.2.pyc": "Python bytecode cache",
+    "python/__pycache__/experiments.cpython-312.pyc": "Python bytecode cache",
+    "python/__pycache__/inputs.cpython-312.pyc": "Python bytecode cache",
+    "python/__pycache__/reference.cpython-312.pyc": "Python bytecode cache"
+  },
+  "third_party_font_notice": {
+    "source_distribution": "matplotlib 3.10.7",
+    "source_relative": "matplotlib/mpl-data/fonts/ttf/LICENSE_DEJAVU",
+    "sha256": "d75938dec098f06f0ac3c00853065d94f020be1c3c62ef1dc2975ba15b4d9b0e"
+  },
+  "core_numerical_sources": "src/*, include/*, python/inputs.py, python/reference.py and python/experiments.py are byte-preserved"
+}

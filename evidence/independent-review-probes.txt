@@ -1,0 +1,22 @@
+PASS current manifest, all original archive members, frozen input and original paired hashes
+PASS fresh-binary exact raw replay of 213 cases; outcomes {'direct': 0, 'cascaded': 64, 'feedforward': 10}
+PASS 32 new absolute-coordinate/second-moment state and work oracle cases at two resolutions
+PASS 48 left/right event intervals against independent oracle
+PASS all 192 MC outcome/limit flags unchanged with four times finer RK steps
+{
+  "status": "passed",
+  "reviewer": "fresh independent agent",
+  "method": "No project simulation or reference implementation imported",
+  "original_manifest_sha256": "c4caa38e51aee29920785a809898e206b82475c80682fdc653e03ae1cbd34d7f",
+  "results_sha256": "d69e150d0b2706265f118a8ef56f327c9ef2b45a5404b0f89fd05dea972c4e89",
+  "review_binary_sha256": "5685243521e7cc947c5660f1c532bf91193aaaf069e47bf80e1c4ebac953c12a",
+  "manifest_files_verified": 71,
+  "archived_source_files_verified": 18,
+  "fresh_binary_exact_replays": 213,
+  "outcomes": {
+    "direct": 0,
+    "cascaded": 64,
+    "feedforward": 10
+  },
+  "elapsed_seconds": 10.246750833000988
+}

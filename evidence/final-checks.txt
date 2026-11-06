@@ -1,0 +1,164 @@
+python3 scripts/guard.py clang++ -std=c++20 -O2 -Wall -Wextra -Werror -Iinclude src/model.cpp src/control.cpp src/simulation.cpp tests/core_tests.cpp -o $HOME/.cache/job-apps-runtime/actuator-lab/build/core_tests
+python3 scripts/guard.py clang++ -std=c++20 -O2 -Wall -Wextra -Werror -Iinclude src/model.cpp src/control.cpp src/simulation.cpp tests/control_tests.cpp -o $HOME/.cache/job-apps-runtime/actuator-lab/build/control_tests
+python3 scripts/guard.py clang++ -std=c++20 -O2 -Wall -Wextra -Werror -Iinclude src/model.cpp src/control.cpp src/simulation.cpp tests/simulation_tests.cpp -o $HOME/.cache/job-apps-runtime/actuator-lab/build/simulation_tests
+python3 scripts/guard.py $HOME/.cache/job-apps-runtime/actuator-lab/build/core_tests
+PASS literal coupled derivatives and signed work
+PASS co-rotation has no back EMF or bearing torque
+PASS zero input rest stays stationary
+PASS RL circuit analytic transient
+PASS friction-only exchange analytic solution
+PASS external torque includes impulse and body work
+PASS derivative identities across finite states
+PASS wrong reaction torque mutant is detected
+PASS coupled integrated work balance
+PASS parameter and resolution admission
+RESULT 10 passed 0 failed
+python3 scripts/guard.py $HOME/.cache/job-apps-runtime/actuator-lab/build/control_tests
+PASS positive body error commands positive wheel torque
+PASS both voltage rails and current demand bounded
+PASS speed gate inhibits outward torque but allows braking
+PASS PI freezes at upper rail for outward error
+PASS PI freezes at lower rail for outward error
+PASS PI permits integration recovering from rail
+PASS hard current trip latches zero terminal command and freezes PI
+PASS relative speed, not absolute wheel speed, determines hard trip
+PASS feedforward ablation removes current feedback and PI update only
+RESULT 9 passed 0 failed
+python3 scripts/guard.py $HOME/.cache/job-apps-runtime/actuator-lab/build/simulation_tests
+PASS pulse begins and ends exactly on sampled boundary
+PASS voltage failure and stuck driver ordering
+PASS complete event schedule participates in admission
+PASS last RK stage uses left-held input at fault edge
+PASS zero voltage allows physical current continuity
+PASS stuck voltage overrides trip without clipping state
+PASS short trace cannot pass terminal window
+PASS nonphysical input rejected before integration
+RESULT 8 passed 0 failed
+python3 scripts/guard.py <historical-python> -m pytest -q -p no:cacheprovider tests
+................................                                         [100%]
+32 passed in 0.84s
+python3 scripts/guard.py clang++ -std=c++20 -O2 -Wall -Wextra -Werror -Iinclude -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer src/model.cpp src/control.cpp src/simulation.cpp tests/core_tests.cpp -o $HOME/.cache/job-apps-runtime/actuator-lab/build/core_sanitized
+python3 scripts/guard.py $HOME/.cache/job-apps-runtime/actuator-lab/build/core_sanitized
+PASS literal coupled derivatives and signed work
+PASS co-rotation has no back EMF or bearing torque
+PASS zero input rest stays stationary
+PASS RL circuit analytic transient
+PASS friction-only exchange analytic solution
+PASS external torque includes impulse and body work
+PASS derivative identities across finite states
+PASS wrong reaction torque mutant is detected
+PASS coupled integrated work balance
+PASS parameter and resolution admission
+RESULT 10 passed 0 failed
+python3 scripts/guard.py clang++ -std=c++20 -O2 -Wall -Wextra -Werror -Iinclude -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer src/model.cpp src/control.cpp src/simulation.cpp tests/simulation_tests.cpp -o $HOME/.cache/job-apps-runtime/actuator-lab/build/simulation_sanitized
+python3 scripts/guard.py $HOME/.cache/job-apps-runtime/actuator-lab/build/simulation_sanitized
+PASS pulse begins and ends exactly on sampled boundary
+PASS voltage failure and stuck driver ordering
+PASS complete event schedule participates in admission
+PASS last RK stage uses left-held input at fault edge
+PASS zero voltage allows physical current continuity
+PASS stuck voltage overrides trip without clipping state
+PASS short trace cannot pass terminal window
+PASS nonphysical input rejected before integration
+RESULT 8 passed 0 failed
+python3 scripts/guard.py <historical-python> python/experiments.py --binary $HOME/.cache/job-apps-runtime/actuator-lab/build/actuator_lab --output evidence
+Smooth convergence checked; running seven named cases with original controllers and follow-up feedforward ablation.
+Named case nominal: direct success=True, cascaded success=True, feedforward success=True
+Named case pulse: direct success=False, cascaded success=True, feedforward success=True
+Named case bias: direct success=False, cascaded success=True, feedforward success=True
+Named case sustained: direct success=False, cascaded success=False, feedforward success=False
+Named case zero_voltage: direct success=False, cascaded success=False, feedforward success=False
+Named case stuck_positive: direct success=False, cascaded success=False, feedforward success=False
+Named case drag: direct success=False, cascaded success=False, feedforward success=False
+Running all frozen paired Monte Carlo trials, each twice for deterministic replay.
+{
+  "checks": 121,
+  "aggregate": {
+    "denominator": 64,
+    "direct_success": 0,
+    "direct_aborted": 0,
+    "cascaded_success": 64,
+    "cascaded_aborted": 0,
+    "feedforward_success": 10,
+    "feedforward_aborted": 0
+  },
+  "convergence": [
+    {
+      "h": 0.001,
+      "state_error": 2.6857558371728985e-07,
+      "work_ledger_error_J": 5.042312746159072e-08,
+      "impulse_ledger_error_Nms": 1.3552527156068805e-20,
+      "max_energy_defect": 4.779768756554936e-08,
+      "max_momentum_defect": 6.098637220230962e-20
+    },
+    {
+      "h": 0.0005,
+      "state_error": 1.5447088441700174e-08,
+      "work_ledger_error_J": 2.9497416037527202e-09,
+      "impulse_ledger_error_Nms": 0.0,
+      "max_energy_defect": 2.7987400680035445e-09,
+      "max_momentum_defect": 2.303929616531697e-19
+    },
+    {
+      "h": 0.00025,
+      "state_error": 9.26220877772721e-10,
+      "work_ledger_error_J": 1.7833335849704035e-10,
+      "impulse_ledger_error_Nms": 1.3552527156068805e-20,
+      "max_energy_defect": 1.6927946212726548e-10,
+      "max_momentum_defect": 3.6591823321385775e-19
+    }
+  ]
+}
+python3 scripts/guard.py <historical-python> python/report.py evidence
+Rendered 5 PNG/PDF figures and self-contained report.html
+python3 scripts/guard.py <historical-python> scripts/manifest.py
+Artifact validation passed: 70 files, 7013454 evidence bytes, 72806400 allocated cache bytes
+Smooth convergence checked; running seven named cases with original controllers and follow-up feedforward ablation.
+Named case nominal: direct success=True, cascaded success=True, feedforward success=True
+Named case pulse: direct success=False, cascaded success=True, feedforward success=True
+Named case bias: direct success=False, cascaded success=True, feedforward success=True
+Named case sustained: direct success=False, cascaded success=False, feedforward success=False
+Named case zero_voltage: direct success=False, cascaded success=False, feedforward success=False
+Named case stuck_positive: direct success=False, cascaded success=False, feedforward success=False
+Named case drag: direct success=False, cascaded success=False, feedforward success=False
+Running all frozen paired Monte Carlo trials, each twice for deterministic replay.
+{
+  "checks": 121,
+  "aggregate": {
+    "denominator": 64,
+    "direct_success": 0,
+    "direct_aborted": 0,
+    "cascaded_success": 64,
+    "cascaded_aborted": 0,
+    "feedforward_success": 10,
+    "feedforward_aborted": 0
+  },
+  "convergence": [
+    {
+      "h": 0.001,
+      "state_error": 2.6857558371728985e-07,
+      "work_ledger_error_J": 5.042312746159072e-08,
+      "impulse_ledger_error_Nms": 1.3552527156068805e-20,
+      "max_energy_defect": 4.779768756554936e-08,
+      "max_momentum_defect": 6.098637220230962e-20
+    },
+    {
+      "h": 0.0005,
+      "state_error": 1.5447088441700174e-08,
+      "work_ledger_error_J": 2.9497416037527202e-09,
+      "impulse_ledger_error_Nms": 0.0,
+      "max_energy_defect": 2.7987400680035445e-09,
+      "max_momentum_defect": 2.303929616531697e-19
+    },
+    {
+      "h": 0.00025,
+      "state_error": 9.26220877772721e-10,
+      "work_ledger_error_J": 1.7833335849704035e-10,
+      "impulse_ledger_error_Nms": 1.3552527156068805e-20,
+      "max_energy_defect": 1.6927946212726548e-10,
+      "max_momentum_defect": 3.6591823321385775e-19
+    }
+  ]
+}
+Rendered 5 PNG/PDF figures and self-contained report.html
+Artifact validation passed: 71 files, 7034145 evidence bytes, 72806400 allocated cache bytes

@@ -1,0 +1,26 @@
+{
+  "review_date": "2026-10-23",
+  "scope": "Fresh independent artifact review; no production source or original experiment outputs edited",
+  "files": {
+    "docs/independent-employer-review.md": {
+      "bytes": 12472,
+      "sha256": "65cb0f965310fe6cd0c77721e9aca1516e8390e1c4dc35c5b7e7b6bc002074dc"
+    },
+    "evidence/independent-review-probe.py": {
+      "bytes": 10443,
+      "sha256": "779b46a2f20f61356053656699cb385fa7ce2de7fb28c997039803b4eb38a024"
+    },
+    "evidence/independent-review-probes.txt": {
+      "bytes": 1083,
+      "sha256": "17906b02c890a6c60bfe357ce795e0040ba951e2c736ac8348b05e24c4faa83e"
+    },
+    "evidence/independent-review-results.json": {
+      "bytes": 68773,
+      "sha256": "c51d1f735fcc9248202f4b6e50a1aad69360766c2c4076ae46fa04ce16b81b4d"
+    },
+    "evidence/independent-review-tests.txt": {
+      "bytes": 4774,
+      "sha256": "983ddea19430f675a3f8af19bd3b516591e91f284230ec323f3799e29de42254"
+    }
+  }
+}

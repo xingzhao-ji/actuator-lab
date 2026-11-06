@@ -1,0 +1,68 @@
+Standalone publication check, 2026-11-06
+Fresh Python 3.12 venv from requirements.txt; make -j1 test sanitize.
+The runtime path below is redacted. Full historical experiment and independent-review matrix were not rerun.
+
+python3 scripts/guard.py clang++ -std=c++20 -O2 -Wall -Wextra -Werror -Iinclude src/model.cpp src/control.cpp src/simulation.cpp src/main.cpp -o <publication-runtime>/cache/build/actuator_lab
+python3 scripts/guard.py clang++ -std=c++20 -O2 -Wall -Wextra -Werror -Iinclude src/model.cpp src/control.cpp src/simulation.cpp tests/core_tests.cpp -o <publication-runtime>/cache/build/core_tests
+python3 scripts/guard.py clang++ -std=c++20 -O2 -Wall -Wextra -Werror -Iinclude src/model.cpp src/control.cpp src/simulation.cpp tests/control_tests.cpp -o <publication-runtime>/cache/build/control_tests
+python3 scripts/guard.py clang++ -std=c++20 -O2 -Wall -Wextra -Werror -Iinclude src/model.cpp src/control.cpp src/simulation.cpp tests/simulation_tests.cpp -o <publication-runtime>/cache/build/simulation_tests
+python3 scripts/guard.py <publication-runtime>/cache/build/core_tests
+PASS literal coupled derivatives and signed work
+PASS co-rotation has no back EMF or bearing torque
+PASS zero input rest stays stationary
+PASS RL circuit analytic transient
+PASS friction-only exchange analytic solution
+PASS external torque includes impulse and body work
+PASS derivative identities across finite states
+PASS wrong reaction torque mutant is detected
+PASS coupled integrated work balance
+PASS parameter and resolution admission
+RESULT 10 passed 0 failed
+python3 scripts/guard.py <publication-runtime>/cache/build/control_tests
+PASS positive body error commands positive wheel torque
+PASS both voltage rails and current demand bounded
+PASS speed gate inhibits outward torque but allows braking
+PASS PI freezes at upper rail for outward error
+PASS PI freezes at lower rail for outward error
+PASS PI permits integration recovering from rail
+PASS hard current trip latches zero terminal command and freezes PI
+PASS relative speed, not absolute wheel speed, determines hard trip
+PASS feedforward ablation removes current feedback and PI update only
+RESULT 9 passed 0 failed
+python3 scripts/guard.py <publication-runtime>/cache/build/simulation_tests
+PASS pulse begins and ends exactly on sampled boundary
+PASS voltage failure and stuck driver ordering
+PASS complete event schedule participates in admission
+PASS last RK stage uses left-held input at fault edge
+PASS zero voltage allows physical current continuity
+PASS stuck voltage overrides trip without clipping state
+PASS short trace cannot pass terminal window
+PASS nonphysical input rejected before integration
+RESULT 8 passed 0 failed
+python3 scripts/guard.py <publication-runtime>/venv/bin/python -m pytest -q -p no:cacheprovider tests
+................................                                         [100%]
+32 passed in 4.72s
+python3 scripts/guard.py clang++ -std=c++20 -O2 -Wall -Wextra -Werror -Iinclude -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer src/model.cpp src/control.cpp src/simulation.cpp tests/core_tests.cpp -o <publication-runtime>/cache/build/core_sanitized
+python3 scripts/guard.py <publication-runtime>/cache/build/core_sanitized
+PASS literal coupled derivatives and signed work
+PASS co-rotation has no back EMF or bearing torque
+PASS zero input rest stays stationary
+PASS RL circuit analytic transient
+PASS friction-only exchange analytic solution
+PASS external torque includes impulse and body work
+PASS derivative identities across finite states
+PASS wrong reaction torque mutant is detected
+PASS coupled integrated work balance
+PASS parameter and resolution admission
+RESULT 10 passed 0 failed
+python3 scripts/guard.py clang++ -std=c++20 -O2 -Wall -Wextra -Werror -Iinclude -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer src/model.cpp src/control.cpp src/simulation.cpp tests/simulation_tests.cpp -o <publication-runtime>/cache/build/simulation_sanitized
+python3 scripts/guard.py <publication-runtime>/cache/build/simulation_sanitized
+PASS pulse begins and ends exactly on sampled boundary
+PASS voltage failure and stuck driver ordering
+PASS complete event schedule participates in admission
+PASS last RK stage uses left-held input at fault edge
+PASS zero voltage allows physical current continuity
+PASS stuck voltage overrides trip without clipping state
+PASS short trace cannot pass terminal window
+PASS nonphysical input rejected before integration
+RESULT 8 passed 0 failed
