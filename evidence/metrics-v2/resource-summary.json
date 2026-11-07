@@ -1,0 +1,577 @@
+{
+  "scope": "All owned extension invocations, including Task1, expected RED and initial Task2 fixture failures. Exact raw requests/receipts remain private, linked by SHA256.",
+  "aggregate_owned_execution_s": 61.07216679201156,
+  "aggregate_ceiling_s": 1200,
+  "remaining_s": 1138.9278332079884,
+  "cache_limit_bytes": 209715200,
+  "rss_limit_bytes": 2147483648,
+  "free_space_minimum_bytes": 32212254720,
+  "maximum_probe_start_gap_s": 0.2500197080007638,
+  "probe_semantics": "Observed start-to-start timestamps, not continuous observation or completion-to-completion cadence; process probe and aggregate cache inventory each bounded at 0.5 s.",
+  "cache_semantics": "Each inventoried entry contributes max(logical size, st_blocks*512); conservative total bounds both logical and allocated bytes.",
+  "failures": "All failed verification attempts retained. Task2 initial GREEN: two controller count-label fixture errors and one ineffective empty-event corruption fixture; corrected against pinned historical evidence. No tolerance or historical outcome changed. No guard, parity or numerical failure in four admitted measurement/report phases.",
+  "report_stderr": "63-byte informational Matplotlib first-font-cache message retained; report succeeded. No rerun to erase it.",
+  "compiler_limitation": "Task1 compiler bytes observed only after builds; subsequent prospective gate and hash-pinned binary reuse do not establish pre-build provenance.",
+  "receipts": [
+    {
+      "run_label": "metrics-allocation",
+      "utc_start": "2026-11-07T01:13:17.269348+00:00",
+      "utc_end": "2026-11-07T01:13:17.625881+00:00",
+      "elapsed_s": 0.3565486669976963,
+      "success": true,
+      "stop_reason": "completed",
+      "closure_confirmed": true,
+      "max_cache_bytes": 75165512,
+      "min_free_bytes": 36248244224,
+      "max_rss_bytes": 24330240,
+      "max_sample_gap_s": 0.24051962500016089,
+      "raw_receipt_sha256": "8179498c07788d2066e6624596ae32f22f192b5b7da84ad697b374d143d42338",
+      "request_sha256": "337f3cc9c30b8018d3b9d26920dad4c9686705903fbcc3240abdf157304baeea",
+      "source_manifest_sha256": "25984991d375fdb94b78dd343df1f99cca71a0180cfc950e2e5007341ba3edc7",
+      "stdout": {
+        "bytes": 124,
+        "sha256": "cc7989f8c1b1a2014f0a1f2e7fcdbc905a4a106c2fd1cc7b2afd3ecf4691fc1d"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "resource_observations": {
+        "bytes": 637,
+        "sha256": "2c04fbf8ed6f096fcd42456ab17a43076552f7585a2aaf713e17ecfe4e01e1e0"
+      }
+    },
+    {
+      "run_label": "metrics-artifact-audit",
+      "utc_start": "2026-11-07T01:16:48.747624+00:00",
+      "utc_end": "2026-11-07T01:16:49.114561+00:00",
+      "elapsed_s": 0.3669518330025312,
+      "success": true,
+      "stop_reason": "completed",
+      "closure_confirmed": true,
+      "max_cache_bytes": 80104416,
+      "min_free_bytes": 36238843904,
+      "max_rss_bytes": 24821760,
+      "max_sample_gap_s": 0.24275249999845983,
+      "raw_receipt_sha256": "39190d52f1b6571f7b6e63cb1ac9670c7b74554e07f62eafd6f0fa1eed8e9457",
+      "request_sha256": "e66e782f44bd3ab02ab6f0a5dc061d5ca843f6d8bb2687fdda170238b630059e",
+      "source_manifest_sha256": "53be1435de19ad21a171360dbc2aadc1c65d5d16d2e3685df227be78cdec7143",
+      "stdout": {
+        "bytes": 1043,
+        "sha256": "b403c38e2971bbffd10da67cbabf9f02807a7c71a6fb5b9a78c374de38a2a82f"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "resource_observations": {
+        "bytes": 639,
+        "sha256": "e195eeea68a1a8f8fb4942687818f1941af78c946df44d775941ea18364d647d"
+      }
+    },
+    {
+      "run_label": "metrics-baseline-build",
+      "utc_start": "2026-11-07T01:13:27.081243+00:00",
+      "utc_end": "2026-11-07T01:13:29.101996+00:00",
+      "elapsed_s": 2.0207687920010358,
+      "success": true,
+      "stop_reason": "completed",
+      "closure_confirmed": true,
+      "max_cache_bytes": 75260104,
+      "min_free_bytes": 36243902464,
+      "max_rss_bytes": 183189504,
+      "max_sample_gap_s": 0.2419969160000619,
+      "raw_receipt_sha256": "cf662c94bff3551f62b8608c27837be3a6e4dd37540827ce453477e1d856317e",
+      "request_sha256": "e4f3c168b4f561aa1545a0aae8395acb3a41c976095888b01f8c42dd0293bdd1",
+      "source_manifest_sha256": "25984991d375fdb94b78dd343df1f99cca71a0180cfc950e2e5007341ba3edc7",
+      "stdout": {
+        "bytes": 205,
+        "sha256": "4f53e6a4ce0c75a35a5222d797586f143bed2a6ef2a7bd774a3a604948080244"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "resource_observations": {
+        "bytes": 3221,
+        "sha256": "9745512007935f79de9a445287812738132bce237323b8044f1ac868d899c3bc"
+      }
+    },
+    {
+      "run_label": "metrics-cli-red",
+      "utc_start": "2026-11-07T01:13:43.561757+00:00",
+      "utc_end": "2026-11-07T01:13:44.152541+00:00",
+      "elapsed_s": 0.5908003749973432,
+      "success": false,
+      "stop_reason": "child_exit",
+      "closure_confirmed": true,
+      "max_cache_bytes": 75941999,
+      "min_free_bytes": 36242960384,
+      "max_rss_bytes": 60866560,
+      "max_sample_gap_s": 0.24081029100125306,
+      "raw_receipt_sha256": "31383a669648e52bdf55bae283be1dfdec63eabd6f9c2ddb4abc5c85c69edc18",
+      "request_sha256": "e02342910b794539424717424f514dd7f30d3d39e9eacc84888466e204080c7d",
+      "source_manifest_sha256": "25984991d375fdb94b78dd343df1f99cca71a0180cfc950e2e5007341ba3edc7",
+      "stdout": {
+        "bytes": 7656,
+        "sha256": "b45e8dc61f9b7ec4e05abd8ab94a825f205a321d493072f24f4a9430592d0c7c"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "resource_observations": {
+        "bytes": 917,
+        "sha256": "71c38ef1ab60ec48cc693870565f3a408cf34e4ad38fa46ead4f3bcd4c04dcf5"
+      }
+    },
+    {
+      "run_label": "metrics-compiler-identity-fixture",
+      "utc_start": "2026-11-07T01:24:30.852131+00:00",
+      "utc_end": "2026-11-07T01:24:31.219285+00:00",
+      "elapsed_s": 0.3671696669989615,
+      "success": true,
+      "stop_reason": "completed",
+      "closure_confirmed": true,
+      "max_cache_bytes": 80129248,
+      "min_free_bytes": 36185292800,
+      "max_rss_bytes": 149012480,
+      "max_sample_gap_s": 0.23932916700141504,
+      "raw_receipt_sha256": "cb5866bd98c0f013ebe21772bf81041d3dc44463751644893808af11e789983b",
+      "request_sha256": "79a0791587389bfc72e106a0354ccf33740f5e6fe8c948e8f5674c53924197fd",
+      "source_manifest_sha256": "d9a37d97ca187a0a38e932dc27c96cd64a929f106beedf58a7341fefe14ec85f",
+      "stdout": {
+        "bytes": 995,
+        "sha256": "897648524eda99aca149154d4af40429aa95d106de326f43d77195ed86c65355"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "resource_observations": {
+        "bytes": 642,
+        "sha256": "3420da793c3fa8364eb3a222246f39532d42c2434e12c8d236687f384dbc16d5"
+      }
+    },
+    {
+      "run_label": "metrics-green-suite",
+      "utc_start": "2026-11-07T01:15:16.026285+00:00",
+      "utc_end": "2026-11-07T01:15:26.880953+00:00",
+      "elapsed_s": 10.854689040999801,
+      "success": true,
+      "stop_reason": "completed",
+      "closure_confirmed": true,
+      "max_cache_bytes": 77394080,
+      "min_free_bytes": 36245114880,
+      "max_rss_bytes": 161284096,
+      "max_sample_gap_s": 0.2500197080007638,
+      "raw_receipt_sha256": "be42d34f09dc847bd432770d2bc8ca0e70f2a6ada8e94916c046d0042d768bba",
+      "request_sha256": "ebea954c076d4632e496d173cd482f89499482f582ada9b87631ceec2a6e013b",
+      "source_manifest_sha256": "095eafb5c7f6373041abbd64c9a35e185a7a181d5e8b3d6d57d06e8178ca6d04",
+      "stdout": {
+        "bytes": 4281,
+        "sha256": "48612fc7d9a3e44d1f7ae63a99854d8d3f04146fa88c09393649400d42c0f89d"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "resource_observations": {
+        "bytes": 16334,
+        "sha256": "b58d310d84f6b31fd9f6bd79d52efb6d488060230e008d52c3b0be19e60dab7f"
+      }
+    },
+    {
+      "run_label": "metrics-native-red",
+      "utc_start": "2026-11-07T01:13:35.559028+00:00",
+      "utc_end": "2026-11-07T01:13:36.867423+00:00",
+      "elapsed_s": 1.3084094590012683,
+      "success": false,
+      "stop_reason": "child_exit",
+      "closure_confirmed": true,
+      "max_cache_bytes": 75313672,
+      "min_free_bytes": 36243730432,
+      "max_rss_bytes": 122798080,
+      "max_sample_gap_s": 0.24172208300296916,
+      "raw_receipt_sha256": "bab41e7a184dbd8ef2669b578c0d583eaebeab4dde37ca01b2be432c516550b4",
+      "request_sha256": "7f758b94eb4e45b59c829e0e863434d5eeb8f681cf6005063f530392849eac0a",
+      "source_manifest_sha256": "25984991d375fdb94b78dd343df1f99cca71a0180cfc950e2e5007341ba3edc7",
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "bytes": 180,
+        "sha256": "eb0a86410d39cf2a9ed5b5a60baf2813f66ecf07103ff2f3bfaeffecb09acf10"
+      },
+      "resource_observations": {
+        "bytes": 1779,
+        "sha256": "3502843f2681bad9e77364ab0fc1b55a70adf8de58b5586e0b2c8a4e38643ea0"
+      }
+    },
+    {
+      "run_label": "metrics-sanitize",
+      "utc_start": "2026-11-07T01:15:58.143305+00:00",
+      "utc_end": "2026-11-07T01:16:05.924622+00:00",
+      "elapsed_s": 7.78133670799798,
+      "success": true,
+      "stop_reason": "completed",
+      "closure_confirmed": true,
+      "max_cache_bytes": 80054752,
+      "min_free_bytes": 36239556608,
+      "max_rss_bytes": 183173120,
+      "max_sample_gap_s": 0.2463059580004483,
+      "raw_receipt_sha256": "fb3ebe2f32b84080c267cd0a8e037b5def4d8b21e3d4601bd493f935971d549b",
+      "request_sha256": "129114930349a141135fb115bacf22eecfa4649cac8219f636686bc80c104a20",
+      "source_manifest_sha256": "cbba12ca1ec5a04b1b717e07d729a5741ab0873156a76e14e80640c16e950e60",
+      "stdout": {
+        "bytes": 3202,
+        "sha256": "b8c08b76c2494adb0297b1880543ac77a3d6e7d1a8841dfe7889d158fa1aaad0"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "resource_observations": {
+        "bytes": 12246,
+        "sha256": "26a0c53ccc97f4cceed5497e64bd8d0a3b0e68bd872f7a0abab9c8075ce88b6e"
+      }
+    },
+    {
+      "run_label": "metrics-task2-fixed-replay",
+      "utc_start": "2026-11-07T01:42:11.383669+00:00",
+      "utc_end": "2026-11-07T01:42:19.291022+00:00",
+      "elapsed_s": 7.90737183300007,
+      "success": true,
+      "stop_reason": "completed",
+      "closure_confirmed": true,
+      "max_cache_bytes": 90427036,
+      "min_free_bytes": 35868012544,
+      "max_rss_bytes": 205160448,
+      "max_sample_gap_s": 0.24759574999916367,
+      "raw_receipt_sha256": "155666ffca58b90a359687be4c2921e7f2ec1cd52dc7def4ef9eb9e291c5c286",
+      "request_sha256": "d87cb9079839b21e0c9aca49641b4f2be2a7746755a0d8eafdab610d6fb9b4e6",
+      "source_manifest_sha256": "c4afa42dd20bdf3ab59ba1a23fe7ce0dc422b2d01b7dd57799678036e8edf902",
+      "stdout": {
+        "bytes": 14924,
+        "sha256": "97cd51432993c2d8a35e70f7cbeec2223228c5e77df3c17b40f2041b482878bf"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "resource_observations": {
+        "bytes": 8287,
+        "sha256": "71d51e241783d8a4a07a4e433acd361270b2fab0c1060e13129e756a811710b9"
+      }
+    },
+    {
+      "run_label": "metrics-task2-green-covering",
+      "utc_start": "2026-11-07T01:33:18.842235+00:00",
+      "utc_end": "2026-11-07T01:33:19.698263+00:00",
+      "elapsed_s": 0.8560442080015491,
+      "success": true,
+      "stop_reason": "completed",
+      "closure_confirmed": true,
+      "max_cache_bytes": 82878628,
+      "min_free_bytes": 35864182784,
+      "max_rss_bytes": 237043712,
+      "max_sample_gap_s": 0.2445704999990994,
+      "raw_receipt_sha256": "730dc5ef271478ea5853bcab00369b5c7f871c2108818241418a0046a8707e2c",
+      "request_sha256": "718b5260fc4e424146c7e3c9b8c26b97863514367f8894c113d909cadf097867",
+      "source_manifest_sha256": "d3447b7a31e8ef03352fb7f54511412b1dab041d7dab28667b41d91af7bc3c03",
+      "stdout": {
+        "bytes": 99,
+        "sha256": "498c81838ccdf2459b49aea8df0727f86178a081ab00dabf54d816335712533d"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "resource_observations": {
+        "bytes": 1059,
+        "sha256": "1cd389c51a8bc1b88f4341326e25b379bac55f613f51bb47cc925f965ae01f02"
+      }
+    },
+    {
+      "run_label": "metrics-task2-green-final",
+      "utc_start": "2026-11-07T01:36:09.017236+00:00",
+      "utc_end": "2026-11-07T01:36:09.874870+00:00",
+      "elapsed_s": 0.8576513750012964,
+      "success": true,
+      "stop_reason": "completed",
+      "closure_confirmed": true,
+      "max_cache_bytes": 81871519,
+      "min_free_bytes": 35860606976,
+      "max_rss_bytes": 236404736,
+      "max_sample_gap_s": 0.24370095799895353,
+      "raw_receipt_sha256": "04e2f544319c6660f4eeb00e3f13e6d522c8a21f61db04b63c02f3f5eb350105",
+      "request_sha256": "4db83bed40674bc8ae7b86258ba447dfd1e9a9fa58a84e3ab16b8787bd310f19",
+      "source_manifest_sha256": "c4afa42dd20bdf3ab59ba1a23fe7ce0dc422b2d01b7dd57799678036e8edf902",
+      "stdout": {
+        "bytes": 99,
+        "sha256": "fe86f363ba947b523d71ba916688ad0ed22d3972cf5ccb01d7bc5937a1417284"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "resource_observations": {
+        "bytes": 1055,
+        "sha256": "51dbf24acf93d4d1c16f94934d53ad26c4a24a7624f7faffffb0ba0deba14e14"
+      }
+    },
+    {
+      "run_label": "metrics-task2-green-initial",
+      "utc_start": "2026-11-07T01:32:38.639855+00:00",
+      "utc_end": "2026-11-07T01:32:39.485477+00:00",
+      "elapsed_s": 0.8456412920022558,
+      "success": false,
+      "stop_reason": "child_exit",
+      "closure_confirmed": true,
+      "max_cache_bytes": 81979896,
+      "min_free_bytes": 35867000832,
+      "max_rss_bytes": 213958656,
+      "max_sample_gap_s": 0.24367991600229288,
+      "raw_receipt_sha256": "05b059e0d6e0844a5b8abb50002d6c38e697a2295566cd303435fdb0a7d5a585",
+      "request_sha256": "7a8790aab99dc2ba60a480eeccfb97fc052d64bf32192501bb30cd90ba06396e",
+      "source_manifest_sha256": "9eeb69f85f1dc1a9be64790904a75ad92afe406bac2088ceae4734e5ac70bfc4",
+      "stdout": {
+        "bytes": 3252,
+        "sha256": "4b29f1cdf3a3ab422261c3c48bc12009e3ed7114127a9688fa41aa6972b82bc4"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "resource_observations": {
+        "bytes": 1047,
+        "sha256": "e8d755926d6356343b8388331025e2f4c586e7ca6ea0226424ff40cef6617e92"
+      }
+    },
+    {
+      "run_label": "metrics-task2-plan",
+      "utc_start": "2026-11-07T01:36:30.456160+00:00",
+      "utc_end": "2026-11-07T01:36:30.819393+00:00",
+      "elapsed_s": 0.3632467910028936,
+      "success": true,
+      "stop_reason": "completed",
+      "closure_confirmed": true,
+      "max_cache_bytes": 81617436,
+      "min_free_bytes": 35860889600,
+      "max_rss_bytes": 149487616,
+      "max_sample_gap_s": 0.24004887499904726,
+      "raw_receipt_sha256": "32e0dd5022a1e311314d920b83cf60e62930f6df8198e93b4427827ee5071c98",
+      "request_sha256": "ec4a62d001149794776c8940c45cc5118b5991166a8fd24769a6e04afac4f1bd",
+      "source_manifest_sha256": "c4afa42dd20bdf3ab59ba1a23fe7ce0dc422b2d01b7dd57799678036e8edf902",
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "resource_observations": {
+        "bytes": 643,
+        "sha256": "7126a18dd9d5eaf3c884296f2e5dc06260a77dc8dfce30fbb17daf9a0ee2dfca"
+      }
+    },
+    {
+      "run_label": "metrics-task2-red",
+      "utc_start": "2026-11-07T01:29:19.253590+00:00",
+      "utc_end": "2026-11-07T01:29:19.863706+00:00",
+      "elapsed_s": 0.6101312499995402,
+      "success": false,
+      "stop_reason": "child_exit",
+      "closure_confirmed": true,
+      "max_cache_bytes": 81077036,
+      "min_free_bytes": 36184580096,
+      "max_rss_bytes": 187138048,
+      "max_sample_gap_s": 0.2434071669995319,
+      "raw_receipt_sha256": "6c84dfa804f0f781027a9750b9e734df9297edc48e682b6057fd9e5dd3381507",
+      "request_sha256": "1e374aa0a2c3ad4bef4a0fad6eba00795182b38cb307084334555edba40d350b",
+      "source_manifest_sha256": "9cd900db1d5da5b736a229c24272e5e3171a206901bb991f9ea05fd6603ae6ca",
+      "stdout": {
+        "bytes": 62686,
+        "sha256": "c802e366724658761ed59badc8a9673b90fa8c0ad0193c07b79c655f0b19467f"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "resource_observations": {
+        "bytes": 847,
+        "sha256": "ba5242c83a60267976a4da1d22b890e19c552db13572781f1210d3e1ab3c90c8"
+      }
+    },
+    {
+      "run_label": "metrics-task2-reference",
+      "utc_start": "2026-11-07T01:42:33.095568+00:00",
+      "utc_end": "2026-11-07T01:42:38.240595+00:00",
+      "elapsed_s": 5.145047000001796,
+      "success": true,
+      "stop_reason": "completed",
+      "closure_confirmed": true,
+      "max_cache_bytes": 90509404,
+      "min_free_bytes": 35866595328,
+      "max_rss_bytes": 243220480,
+      "max_sample_gap_s": 0.24438070800169953,
+      "raw_receipt_sha256": "fd52cae7140e2dc756b656b5c4eb8e552cd65302433e07403637872ab477445d",
+      "request_sha256": "67a24fae2d9733b67891199c429df20d740ddce5e3ef392eeb59c47a872661ca",
+      "source_manifest_sha256": "c4afa42dd20bdf3ab59ba1a23fe7ce0dc422b2d01b7dd57799678036e8edf902",
+      "stdout": {
+        "bytes": 11715,
+        "sha256": "707ccd6da85bfd494fbf1fb4a819522d586192e65d296f44bf23788514302327"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "resource_observations": {
+        "bytes": 4714,
+        "sha256": "e7106cfb637dce559676ae85d69b7824a7fdaa7bfc5629f654fb1319599e21a5"
+      }
+    },
+    {
+      "run_label": "metrics-task2-reference-finalizer-red",
+      "utc_start": "2026-11-07T01:35:21.819141+00:00",
+      "utc_end": "2026-11-07T01:35:22.686550+00:00",
+      "elapsed_s": 0.867423959000007,
+      "success": false,
+      "stop_reason": "child_exit",
+      "closure_confirmed": true,
+      "max_cache_bytes": 81830207,
+      "min_free_bytes": 35861643264,
+      "max_rss_bytes": 233127936,
+      "max_sample_gap_s": 0.24782287499692757,
+      "raw_receipt_sha256": "0ee323bbda51731394249633c213d8449cdbda7180e71c65674cec8c33e5f05c",
+      "request_sha256": "5a20d68abdf0a73a33bc55e435a997a849b38e3694f6f5f11b735a7fb31a94ad",
+      "source_manifest_sha256": "40817b0ae450f16dfd79ff348a16cc1854b0b14bbfec2b9241810f339b7cec8a",
+      "stdout": {
+        "bytes": 1260,
+        "sha256": "88762601e9bdb605b6a87f08dd969fd23e3b544b39ca9a2f9883ecdd1f21ef64"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "resource_observations": {
+        "bytes": 1051,
+        "sha256": "131cede5d648cbbcf6e806f50c319a6fe354baef8a4e111f4ed966e65c07aabd"
+      }
+    },
+    {
+      "run_label": "metrics-task2-report",
+      "utc_start": "2026-11-07T01:43:14.228345+00:00",
+      "utc_end": "2026-11-07T01:43:32.151241+00:00",
+      "elapsed_s": 17.92292095800076,
+      "success": true,
+      "stop_reason": "completed",
+      "closure_confirmed": true,
+      "max_cache_bytes": 98089372,
+      "min_free_bytes": 35856949248,
+      "max_rss_bytes": 289161216,
+      "max_sample_gap_s": 0.24517020799976308,
+      "raw_receipt_sha256": "999bd78f46e5d54356290230f423272dcf98d239790d1a53a5af2a8e0916b2cc",
+      "request_sha256": "c567ac0c93cd794042abebb8e26fe8606bc57f3977d9f2614107af94dd5331dc",
+      "source_manifest_sha256": "c4afa42dd20bdf3ab59ba1a23fe7ce0dc422b2d01b7dd57799678036e8edf902",
+      "stdout": {
+        "bytes": 2217,
+        "sha256": "a0ab3a897372bb0424632e747a5346446773061dd51592f2f28262c9c3fc2ce8"
+      },
+      "stderr": {
+        "bytes": 63,
+        "sha256": "cace1071573ef725e762e8856427937617c8c67e5d0784c45c0e854e56a803a8"
+      },
+      "resource_observations": {
+        "bytes": 21013,
+        "sha256": "0d9848b4c1f840523a7b9dcd4f83c1858f98638cd820c0303964774ce8e73052"
+      }
+    },
+    {
+      "run_label": "metrics-task2-report-red",
+      "utc_start": "2026-11-07T01:33:32.492209+00:00",
+      "utc_end": "2026-11-07T01:33:32.851717+00:00",
+      "elapsed_s": 0.35952212500342284,
+      "success": false,
+      "stop_reason": "child_exit",
+      "closure_confirmed": true,
+      "max_cache_bytes": 81800860,
+      "min_free_bytes": 35864186880,
+      "max_rss_bytes": 150093824,
+      "max_sample_gap_s": 0.23778616599884117,
+      "raw_receipt_sha256": "d89369011afde87ea186af1b5867ada5819784fc02794268278628433676eefe",
+      "request_sha256": "0bf429083abc653595420adf6c4c7880868ca6ebf10919428d3d602b48dcbdf2",
+      "source_manifest_sha256": "196832452e633af430cd9ac064009070ade25afca26aeced44f1263d94373d1a",
+      "stdout": {
+        "bytes": 2342,
+        "sha256": "094d7d9289ef3062c3c4d6f4e41530fdf2f36b8a3d92c446bbe22cc43ad44b7e"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "resource_observations": {
+        "bytes": 643,
+        "sha256": "f2ddf9a73d121e9d6d1a3225cdd4c7ad3864e7e6b9257d03548fb079e7d03e5a"
+      }
+    },
+    {
+      "run_label": "metrics-task2-sensitivity",
+      "utc_start": "2026-11-07T01:42:53.516745+00:00",
+      "utc_end": "2026-11-07T01:42:55.092134+00:00",
+      "elapsed_s": 1.5754047500013257,
+      "success": true,
+      "stop_reason": "completed",
+      "closure_confirmed": true,
+      "max_cache_bytes": 91928156,
+      "min_free_bytes": 35865214976,
+      "max_rss_bytes": 196673536,
+      "max_sample_gap_s": 0.24706983400028548,
+      "raw_receipt_sha256": "725f9e9973c9b77a1a0c9525b0ed0d6ade4632385b867388e79badbedcc74ed0",
+      "request_sha256": "1f285623825f86a4cbcd348fc539db69db1c26775e3f141fc471d567f1262f88",
+      "source_manifest_sha256": "c4afa42dd20bdf3ab59ba1a23fe7ce0dc422b2d01b7dd57799678036e8edf902",
+      "stdout": {
+        "bytes": 2471,
+        "sha256": "f083cbdfc18a6dc627e0e6bd06b038857764dd7fc4e3213bce97a5e0f1d0c7c6"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "resource_observations": {
+        "bytes": 1829,
+        "sha256": "45cb9d7007c05537eee64385f177edb339fe7d34c04ba3f7a7d61dd813f00593"
+      }
+    },
+    {
+      "run_label": "metrics-toolchain",
+      "utc_start": "2026-11-07T01:16:20.617987+00:00",
+      "utc_end": "2026-11-07T01:16:20.733062+00:00",
+      "elapsed_s": 0.11508670900002471,
+      "success": true,
+      "stop_reason": "completed",
+      "closure_confirmed": true,
+      "max_cache_bytes": 80079584,
+      "min_free_bytes": 36239491072,
+      "max_rss_bytes": 26034176,
+      "max_sample_gap_s": 0.034863332999520935,
+      "raw_receipt_sha256": "963e7e92e432efb7b277586eb997f1a6c919927d87326f885c8cfe11a1b2a742",
+      "request_sha256": "7bc402c13950bc92d584bfbb28bee4d28b507737ef86e6df685f3a981f9dc6f1",
+      "source_manifest_sha256": "cbba12ca1ec5a04b1b717e07d729a5741ab0873156a76e14e80640c16e950e60",
+      "stdout": {
+        "bytes": 201,
+        "sha256": "f29205d7c2a38b4751821f13b4ce058720c5bb2cba76dfb3c9be3ee585a21d04"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "resource_observations": {
+        "bytes": 444,
+        "sha256": "9525543212f31d338e7a870eb2c4b8bcfee3af62d483e33c93c43314698a113e"
+      }
+    }
+  ]
+}

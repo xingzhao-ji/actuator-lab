@@ -1,0 +1,114 @@
+{
+  "named": {
+    "direct": {
+      "denominator": 7,
+      "legacy_success": 1,
+      "settling_counts": {
+        "settled": 1,
+        "not_settled": 6,
+        "insufficient_horizon": 0,
+        "incomplete": 0
+      },
+      "supplied_energy_J_median": 0.4006582267271895,
+      "regenerated_energy_J_median": 0.038358176845772744,
+      "gate_fraction_median": {
+        "speed_gate": 0,
+        "current_clamp": 0,
+        "voltage_clamp": 0,
+        "trip": 0.41500000000000004
+      }
+    },
+    "cascaded": {
+      "denominator": 7,
+      "legacy_success": 3,
+      "settling_counts": {
+        "settled": 3,
+        "not_settled": 4,
+        "insufficient_horizon": 0,
+        "incomplete": 0
+      },
+      "supplied_energy_J_median": 4.5136281106692095,
+      "regenerated_energy_J_median": 0.05339935486904623,
+      "gate_fraction_median": {
+        "speed_gate": 0,
+        "current_clamp": 0,
+        "voltage_clamp": 0,
+        "trip": 0
+      }
+    },
+    "feedforward": {
+      "denominator": 7,
+      "legacy_success": 3,
+      "settling_counts": {
+        "settled": 3,
+        "not_settled": 4,
+        "insufficient_horizon": 0,
+        "incomplete": 0
+      },
+      "supplied_energy_J_median": 4.516309770208916,
+      "regenerated_energy_J_median": 0.0450366744365632,
+      "gate_fraction_median": {
+        "speed_gate": 0,
+        "current_clamp": 0,
+        "voltage_clamp": 0,
+        "trip": 0
+      }
+    }
+  },
+  "mc": {
+    "direct": {
+      "denominator": 64,
+      "legacy_success": 0,
+      "settling_counts": {
+        "settled": 0,
+        "not_settled": 64,
+        "insufficient_horizon": 0,
+        "incomplete": 0
+      },
+      "supplied_energy_J_median": 0.7592252509813009,
+      "regenerated_energy_J_median": 0.12423799994683998,
+      "gate_fraction_median": {
+        "speed_gate": 0.0,
+        "current_clamp": 0.0,
+        "voltage_clamp": 0.0,
+        "trip": 0.0
+      }
+    },
+    "cascaded": {
+      "denominator": 64,
+      "legacy_success": 64,
+      "settling_counts": {
+        "settled": 64,
+        "not_settled": 0,
+        "insufficient_horizon": 0,
+        "incomplete": 0
+      },
+      "supplied_energy_J_median": 1.1189975464257809,
+      "regenerated_energy_J_median": 0.2764296831516314,
+      "gate_fraction_median": {
+        "speed_gate": 0.0,
+        "current_clamp": 0.0,
+        "voltage_clamp": 0.0,
+        "trip": 0.0
+      }
+    },
+    "feedforward": {
+      "denominator": 64,
+      "legacy_success": 10,
+      "settling_counts": {
+        "settled": 10,
+        "not_settled": 54,
+        "insufficient_horizon": 0,
+        "incomplete": 0
+      },
+      "supplied_energy_J_median": 1.1532331317997673,
+      "regenerated_energy_J_median": 0.25474279397315225,
+      "gate_fraction_median": {
+        "speed_gate": 0.0,
+        "current_clamp": 0.0,
+        "voltage_clamp": 0.0,
+        "trip": 0.0
+      }
+    }
+  }
+}

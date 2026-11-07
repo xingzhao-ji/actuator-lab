@@ -1,0 +1,18 @@
+{
+  "denominator": 9,
+  "slots": [
+    "named/nominal/direct",
+    "named/nominal/cascaded",
+    "named/nominal/feedforward",
+    "named/bias/direct",
+    "named/bias/cascaded",
+    "named/bias/feedforward",
+    "named/stuck_positive/direct",
+    "named/stuck_positive/cascaded",
+    "named/stuck_positive/feedforward"
+  ],
+  "replay_sha256": "491541aff3f7e174d332ab27d525fdbb41f0aa3c1d81af827791e340d44d0551",
+  "request_sha256": "67a24fae2d9733b67891199c429df20d740ddce5e3ef392eeb59c47a872661ca",
+  "source_commit": "d575dc353bb67fd10dc76ca884de3cf595e239db",
+  "reference_source_sha256": "af2a4009eaa9e30ec814b4f33e2ed3f33d23fa9ad3c319e75f229a4b8445e629"
+}

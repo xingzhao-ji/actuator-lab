@@ -1,0 +1,21 @@
+{
+  "report_utc": "2026-11-07T01:43:32.031018+00:00",
+  "measurement_start_utc": "2026-11-07T01:42:11.592013+00:00",
+  "measurement_end_utc": "2026-11-07T01:42:18.917636+00:00",
+  "original_experiment": "October 2026; original accepted integration update 2026-10-23",
+  "publication": "not performed by report renderer",
+  "renderer_source_sha256": "732519be98ddb82733b0d166546ce3b41bee614e1c80b46061fac2a575d86f7c",
+  "report_request_sha256": "c567ac0c93cd794042abebb8e26fe8606bc57f3977d9f2614107af94dd5331dc",
+  "all_213_legacy_parity": true,
+  "reference_denominator": 9,
+  "sensitivity_denominator": 33,
+  "post_render_presentation_edit": {
+    "description": "Remove private qualification-map identifier from public scope prose; no result, image or scientific definition changes.",
+    "executed_report_html_sha256": "68038982942231c64da9f9de223f1747124110daa7daeb34499a38523db95a98",
+    "final_report_html_sha256": "9ea0711d777ff063d39e9058be265c664370e034894b30505cb7863daf1dfb97",
+    "executed_renderer_source_sha256": "732519be98ddb82733b0d166546ce3b41bee614e1c80b46061fac2a575d86f7c",
+    "prose_corrected_renderer_source_sha256": "dc8cafb97ea3560b08285db7ab8ef8ece0e31397b9bb98be0047213c75639722",
+    "corrected_renderer_executed": false,
+    "packaging_script_sha256": "1438e22d2754586c24974ceb285a74f456c3eaad60e7b5898f3acd511a228d22"
+  }
+}

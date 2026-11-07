@@ -76,3 +76,26 @@ AI-assisted source/evidence does not establish personal expertise. To make this 
 [Design](docs/design.md) · [accepted scope and deviations](docs/acceptance-addendum.md) · [independent AI-assisted review](docs/independent-employer-review.md) · [publication provenance](docs/publication-provenance.json)
 
 The review was performed by a separate AI agent, not an employer or certification body. No project license has been added. External libraries retain their own terms; the notice for DejaVu font subsets embedded in the generated PDFs is included in [third-party notices](THIRD_PARTY_NOTICES.md).
+
+## Original measurement completion — November 2026
+
+The [additive measurement report](evidence/metrics-v2/report.html) completes the
+original settling-time, duration-weighted gate-occupancy, and separate gross
+terminal supply/regeneration measurements. On November 7 UTC (November 6 local),
+all **213 fixed configurations** reproduced every historical legacy summary field
+and CSV hash exactly. Nine independent absolute-coordinate DOP853 comparisons and
+33 four-times-substep sensitivity cases passed the unchanged prescribed limits.
+[Definitions and numerical results](docs/metrics-v2.md),
+[all 213 rows](evidence/metrics-v2/runs.csv), and the
+[artifact manifest](evidence/metrics-v2/manifest.json) retain the audit trail.
+
+The original October experiment and its negative outcomes remain unchanged:
+Monte Carlo success is direct **0/64**, cascaded **64/64**, feedforward **10/64**.
+The new tracking-settling counts happen to match those counts on this cohort;
+the metrics have separate definitions. Feedforward remains a post-observation
+ablation. These endpoint-observed synthetic measurements do not establish
+continuous-time safety, hardware performance, battery recovery efficiency, or
+personal mastery. Historical compiler identity was observed after Task1 builds;
+the tested binary was hash-pinned for the new replay, without claiming earlier
+compiler provenance. This agent-assisted extension remains subject to independent
+artifact review and separate publication checks.

@@ -3,8 +3,9 @@
 This additive measurement extension completes the original requested settling,
 command-gate occupancy and gross terminal-energy metrics. Original evidence,
 experiment dates, outcomes and acceptance documents remain historical evidence.
-The extension's 213-run replay, parity and numerical checks are a separate later
-acceptance step; this document makes no new measured result-count claim.
+The extension's 213-run replay, parity and numerical checks are separately dated
+measurements reported below. Independent review and publication are separate
+acceptance steps.
 
 Each CLI `summary.json` gains `observational_metrics`. Existing summary fields and
 CSV columns retain their meaning. The nine physical/work/impulse states, control
@@ -101,3 +102,54 @@ The original accepted experiment was October 2026. Extension execution timestamp
 and later publication verification are separate and do not renew old experiments.
 The historical Task1 compiler identity was observed only after its builds; pinned
 binary reuse and prospective compiler gates do not establish earlier provenance.
+
+## Measured extension — November 7, 2026 UTC
+
+The [offline report](../evidence/metrics-v2/report.html) records a complete
+213/213 fixed replay: all 21 named and 192 Monte Carlo configurations retain exact
+legacy CSV hashes and parsed legacy summaries, including event lists. No slots
+are missing, invalid, or retried. All energy identities pass; the largest absolute
+split residual is **1.0658141036401503e-13 J**. This new replay is separate from
+the original October 2026 experiment and later publication checks.
+
+| Cohort | Controller | Tracking settled | Not settled | Original success |
+|---|---|---:|---:|---:|
+| Named | direct | 1/7 | 6/7 | 1/7 |
+| Named | cascaded | 3/7 | 4/7 | 3/7 |
+| Named | feedforward | 3/7 | 4/7 | 3/7 |
+| Frozen MC | direct | 0/64 | 64/64 | 0/64 |
+| Frozen MC | cascaded | 64/64 | 0/64 | 64/64 |
+| Frozen MC | feedforward | 10/64 | 54/64 | 10/64 |
+
+Every run completed its declared horizon; none is `incomplete` or
+`insufficient_horizon`. Settling and original success remain separate definitions
+although their counts coincide here. All three stuck-positive named runs retain
+their unsuccessful, excursion-positive outcomes.
+
+All nine independent reference comparisons passed: nominal, bias and
+stuck-positive for each controller. Maximum gross-energy absolute error was
+**5.8558212723269776e-08 J**; settled times matched at the original endpoints.
+All 33 sensitivity comparisons passed: 21 named plus MC IDs 0,21,42,63 for each
+controller, at four times the original substeps. Maximum gross-energy difference
+was **0.00018475959543673426 J**, within the prescribed absolute-plus-relative
+limit; maximum settled-time difference was **0.000375 s**, below one original
+0.01 s controller interval. All settling statuses, legacy success/abort/trip/
+excursion flags and event lists agreed. All gate-duration differences were zero.
+Individual comparisons and their limits are retained, including larger-energy
+cases where the allowed absolute difference is correspondingly larger.
+
+The gate figure displays medians, which can be zero despite interventions.
+Named direct/cascaded/feedforward runs with any speed gating number **1/1/1**
+(out of seven each); any current clamp **0/2/2**; any voltage clamp **1/2/0**;
+any trip-latched duration **4/1/1**. Among the 64 MC inputs, direct has nine runs
+with trip-latched duration, while cascaded and feedforward have none. Other MC
+gate durations are all zero. The [213-row CSV](../evidence/metrics-v2/runs.csv)
+retains each fraction, and the full JSON retains durations and denominators.
+
+The [resource summary](../evidence/metrics-v2/resource-summary.json) links all
+private raw receipts and immutable requests by SHA256, including expected RED
+and initial fixture failures. No numerical/parity/guard failure occurred in the
+four admitted measurement/report phases. Sampling bounds refer to resource-probe
+start timestamps; they do not establish continuous observation or a
+completion-to-completion cadence. The original provenance and scope limitations
+above continue to apply.
