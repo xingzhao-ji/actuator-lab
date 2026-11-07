@@ -20,6 +20,27 @@ int integer(const std::string& s) {
     int value;const auto [end,error]=std::from_chars(s.data(),s.data()+s.size(),value);
     if(error!=std::errc{}||end!=s.data()+s.size())throw std::invalid_argument("invalid integer");return value;
 }
+template<class T> void write_nullable(std::ostream& out,const std::optional<T>& value) {
+    if(value)out<<*value;else out<<"null";
+}
+void write_metrics(std::ostream& out,const ObservationalMetrics& m) {
+    out<<"{\"schema_version\":"<<m.schema_version
+        <<",\"units\":{\"time\":\"s\",\"energy\":\"J\",\"gate_fraction\":\"dimensionless\"}"
+        <<",\"tracking_settling_status\":\""<<m.tracking_settling_status<<"\",\"tracking_settling_time_s\":";
+    write_nullable(out,m.tracking_settling_time_s);
+    out<<",\"observation_step_s\":"<<m.observation_step_s<<",\"completed_steps\":"<<m.completed_steps
+        <<",\"observed_duration_s\":"<<m.observed_duration_s<<",\"planned_duration_s\":"<<m.planned_duration_s
+        <<",\"supplied_energy_J\":"<<m.supplied_energy_J<<",\"regenerated_energy_J\":"<<m.regenerated_energy_J
+        <<",\"net_electrical_work_J\":"<<m.net_electrical_work_J<<",\"energy_split_residual_J\":"<<m.energy_split_residual_J
+        <<",\"last_violating_step\":";
+    write_nullable(out,m.last_violating_step);
+    out<<",\"qualifying_tail_start_step\":";write_nullable(out,m.qualifying_tail_start_step);
+    out<<",\"gate_durations_s\":{";
+    for(unsigned j=0;j<4;++j){if(j)out<<',';out<<'"'<<metric_gate_names[j]<<"\":"<<m.gate_durations_s[j];}
+    out<<"},\"gate_fractions\":{";
+    for(unsigned j=0;j<4;++j){if(j)out<<',';out<<'"'<<metric_gate_names[j]<<"\":";write_nullable(out,m.gate_fractions[j]);}
+    out<<"}}";
+}
 void write_result(const fs::path& output,const RunConfig& c,const RunResult& r) {
     if(output.filename().empty()||fs::exists(output)||!fs::is_directory(output.parent_path().empty()?fs::path("."):output.parent_path()))throw std::invalid_argument("output must be a new directory in an existing parent");
     const fs::path temp=output.string()+".tmp-"+std::to_string(getpid());
@@ -39,7 +60,7 @@ void write_result(const fs::path& output,const RunConfig& c,const RunResult& r) 
         for(unsigned j=0;j<9;++j){if(j)json<<',';json<<c.initial[j];}
         json<<"]},\n\"aborted\":"<<r.aborted<<",\"tripped\":"<<r.tripped<<",\"success\":"<<r.success<<",\"excursion\":"<<r.excursion<<",\"reason\":\""<<r.reason<<"\",\n\"completed_steps\":"<<r.completed_steps
             <<",\"max_current\":"<<r.max_current<<",\"max_relative_speed\":"<<r.max_relative_speed<<",\"max_energy_defect\":"<<r.max_energy_defect<<",\"max_momentum_defect\":"<<r.max_momentum_defect<<",\"terminal_angle_error\":"<<r.terminal_angle_error<<",\"terminal_body_speed\":"<<r.terminal_body_speed<<",\"events\":[";
-        for(unsigned j=0;j<r.events.size();++j){if(j)json<<',';json<<'"'<<r.events[j]<<'"';}json<<"]\n}\n";json.close();
+        for(unsigned j=0;j<r.events.size();++j){if(j)json<<',';json<<'"'<<r.events[j]<<'"';}json<<"],\n\"observational_metrics\":";write_metrics(json,r.observational_metrics);json<<"\n}\n";json.close();
         // Both artifacts become visible together; an existing directory is never replaced.
         if(fs::exists(output))throw std::runtime_error("output appeared during run");
         fs::rename(temp,output);

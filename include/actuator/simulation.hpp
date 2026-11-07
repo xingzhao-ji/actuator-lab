@@ -1,5 +1,6 @@
 #pragma once
 #include "control.hpp"
+#include "metrics.hpp"
 #include <string>
 #include <vector>
 namespace actuator {
@@ -16,6 +17,7 @@ struct RunResult {
     std::string reason="completed";
     double max_current=0,max_relative_speed=0,max_energy_defect=0,max_momentum_defect=0,terminal_angle_error=0,terminal_body_speed=0;
     int completed_steps=0;
+    ObservationalMetrics observational_metrics;
 };
 void validate(const RunConfig&);
 Input schedule(const RunConfig&,int tick,double command);

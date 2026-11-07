@@ -33,6 +33,11 @@ Input schedule(const RunConfig& c,int tick,double command) {
 RunResult simulate(const RunConfig& c) {
     validate(c);RunResult result;result.samples.reserve(c.ticks+1);
     State x=c.initial;ControlMemory memory;const double E0=energy(x,c.plant),H0=momentum(x,c.plant),h=c.Tc/c.substeps;
+    MetricAccumulator metrics(h,static_cast<long long>(c.ticks)*c.substeps,c.target,x);
+    auto finish_metrics=[&]() {
+        result.observational_metrics=metrics.finish(result.aborted,x[electrical]);
+        result.observational_metrics.planned_duration_s=c.ticks*c.Tc;
+    };
     auto observe=[&](double time) {
         result.max_current=std::max(result.max_current,std::abs(x[current]));
         result.max_relative_speed=std::max(result.max_relative_speed,std::abs(x[wheel]-x[body]));
@@ -56,19 +61,23 @@ RunResult simulate(const RunConfig& c) {
         previous=u;had_previous=true;result.samples.push_back({time,x,u,ctrl});
         if(tick==c.ticks)break;
         for(int sub=0;sub<c.substeps;++sub) {
-            auto candidate=rk4(x,c.plant,u,h);
+            RKStages stages;
+            auto candidate=rk4(x,c.plant,u,h,&stages);
             bool valid=std::all_of(candidate.begin(),candidate.end(),[](double v){return std::isfinite(v);});
             valid=valid&&std::abs(candidate[theta])<=100&&std::abs(candidate[body])<=100&&std::abs(candidate[wheel])<=2000&&std::abs(candidate[current])<=50;
             if(!valid) {
                 result.aborted=true;result.reason="numerical envelope exceeded; last admissible state retained";
                 result.events.push_back("abort@step"+std::to_string(result.completed_steps));
                 if(sub>0)result.samples.push_back({time+sub*h,x,u,ctrl});
+                finish_metrics();
                 return result;
             }
             x=candidate;++result.completed_steps;observe(time+(sub+1)*h);
+            metrics.accept(x,ctrl,u.voltage,stages);
         }
     }
     result.success=c.ticks*c.Tc>=2&&!result.aborted&&!result.tripped&&!result.excursion&&result.terminal_angle_error<=.01&&result.terminal_body_speed<=.002;
+    finish_metrics();
     return result;
 }
 }

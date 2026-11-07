@@ -12,8 +12,13 @@ State rhs(const State& x,const Params& p,const Input& u) {
         u.external_torque*x[body],u.external_torque};
 }
 State rk4(const State& x,const Params& p,const Input& u,double h) {
+    return rk4(x,p,u,h,nullptr);
+}
+State rk4(const State& x,const Params& p,const Input& u,double h,RKStages* stages) {
     auto add=[&](const State& a,double factor) { State v=x;for(unsigned j=0;j<9;++j)v[j]+=factor*a[j];return v; };
     const auto a=rhs(x,p,u),b=rhs(add(a,h/2),p,u),c=rhs(add(b,h/2),p,u),d=rhs(add(c,h),p,u);
+    if(stages)stages->currents={x[current],x[current]+(h/2)*a[current],
+        x[current]+(h/2)*b[current],x[current]+h*c[current]};
     State v=x;for(unsigned j=0;j<9;++j)v[j]+=h/6*(a[j]+2*b[j]+2*c[j]+d[j]);return v;
 }
 double energy(const State& x,const Params& p) {return .5*(p.Jb*x[body]*x[body]+p.Jw*x[wheel]*x[wheel]+p.L*x[current]*x[current]);}

@@ -8,7 +8,10 @@ using State = std::array<double,9>;
 struct Params { double Jb=0.05,Jw=0.001,R=2,L=0.01,k=0.05,b=1e-5; };
 struct Input { double voltage=0,external_torque=0,bearing_multiplier=1; };
 State rhs(const State&,const Params&,const Input&);
+// Currents at the four existing RK stages; observations never enter the state.
+struct RKStages { std::array<double,4> currents{}; };
 State rk4(const State&,const Params&,const Input&,double h);
+State rk4(const State&,const Params&,const Input&,double h,RKStages*);
 double energy(const State&,const Params&);
 double momentum(const State&,const Params&);
 void validate(const Params&,double h);
