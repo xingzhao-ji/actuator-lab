@@ -35,12 +35,24 @@ verify: test sanitize
 
 # Additive metrics only. A versioned plan must be generated before measurement.
 # In externally supervised executions override GUARD= to avoid nested guards.
-.PHONY: metrics-plan metrics-replay metrics-finalize
+.PHONY: metrics-plan metrics-request metrics-replay metrics-reference metrics-sensitivity metrics-report metrics-finalize
 METRICS_PLAN ?= $(CACHE)/fixed-plan.json
 METRICS_OUTPUT ?= $(CACHE)/replay
+METRICS_REQUEST ?= $(CACHE)/metrics-request.json
+METRICS_REFERENCE ?= $(CACHE)/reference
+METRICS_SENSITIVITY ?= $(CACHE)/sensitivity
+METRICS_REPORT ?= $(CACHE)/metrics-report
 metrics-plan:
 	$(GUARD) $(PYTHON) python/measurements.py plan --output $(METRICS_PLAN)
+metrics-request: build
+	$(GUARD) $(PYTHON) python/public_provenance.py --binary $(BUILD)/actuator_lab --output $(METRICS_REQUEST)
 metrics-replay:
-	$(GUARD) $(PYTHON) python/measurements.py replay --plan $(METRICS_PLAN) --binary $(BUILD)/actuator_lab --output $(METRICS_OUTPUT) --request $(METRICS_REQUEST)
+	$(GUARD) $(PYTHON) python/measurements.py replay --public-reproduction --plan $(METRICS_PLAN) --binary $(BUILD)/actuator_lab --output $(METRICS_OUTPUT) --request $(METRICS_REQUEST)
+metrics-reference:
+	$(GUARD) $(PYTHON) python/metric_reference.py --public-reproduction --replay $(METRICS_OUTPUT)/results.json --output $(METRICS_REFERENCE) --request $(METRICS_REQUEST)
+metrics-sensitivity:
+	$(GUARD) $(PYTHON) python/measurements.py sensitivity --public-reproduction --plan $(METRICS_PLAN) --binary $(BUILD)/actuator_lab --baseline $(METRICS_OUTPUT)/results.json --output $(METRICS_SENSITIVITY) --request $(METRICS_REQUEST)
+metrics-report:
+	$(GUARD) $(PYTHON) python/metric_report.py --public-reproduction --replay $(METRICS_OUTPUT)/results.json --reference $(METRICS_REFERENCE)/results.json --sensitivity $(METRICS_SENSITIVITY)/results.json --output $(METRICS_REPORT) --request $(METRICS_REQUEST)
 metrics-finalize:
 	$(GUARD) $(PYTHON) python/measurements.py finalize --plan $(METRICS_PLAN) --ledger $(METRICS_OUTPUT)/events.jsonl --output $(METRICS_OUTPUT)/recovered-results.json

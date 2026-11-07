@@ -116,6 +116,7 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--replay'); p.add_argument('--finalize-plan'); p.add_argument('--ledger'); p.add_argument('--evidence', default='evidence')
     p.add_argument('--output', required=True); p.add_argument('--request')
+    p.add_argument('--public-reproduction', action='store_true')
     args = p.parse_args()
     cache = Path(os.environ['ACTUATOR_CACHE']).resolve(); out = Path(args.output).resolve()
     if cache not in out.parents: raise ValueError('reference output must be staged in cache')
@@ -129,16 +130,24 @@ def main():
     if len(selected) != 9: raise ValueError('reference denominator mismatch')
     identity = selected[0]['record']['identities']
     root = Path(__file__).resolve().parents[1]
-    if subprocess.check_output(['git', 'status', '--porcelain'], cwd=root, text=True).strip():
-        raise ValueError('reference source must be clean and committed')
-    commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=root, text=True).strip()
-    if commit != identity['source_commit'] or hashlib.sha256(Path(__file__).read_bytes()).hexdigest() != identity['source_files']['python/metric_reference.py']:
-        raise ValueError('reference source differs from admitted replay source')
+    tool_identity = None
+    if args.public_reproduction:
+        from public_provenance import validate_request
+        request = validate_request(args.request)
+        tool_identity = {'execution_kind': 'public_reproduction', 'source': request['source'], 'runtime': request['runtime']}
+    else:
+        if subprocess.check_output(['git', 'status', '--porcelain'], cwd=root, text=True).strip():
+            raise ValueError('reference source must be clean and committed')
+        commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=root, text=True).strip()
+        if commit != identity['source_commit'] or hashlib.sha256(Path(__file__).read_bytes()).hexdigest() != identity['source_files']['python/metric_reference.py']:
+            raise ValueError('reference source differs from admitted replay source; use explicit public reproduction to recompute bundled data with current tools')
     out.mkdir(exist_ok=False)
     plan = {'denominator': 9, 'slots': [s['id'] for s in selected], 'replay_sha256': hashlib.sha256(replay_bytes).hexdigest(),
             'request_sha256': hashlib.sha256(Path(args.request).read_bytes()).hexdigest(),
             'source_commit': selected[0]['record']['identities']['source_commit'],
             'reference_source_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
+    if tool_identity is not None:
+        plan.update(execution_kind='public_reproduction', data_source_identity=identity, tool_identity=tool_identity)
     (out/'plan.json').write_text(json.dumps(plan, indent=2)+'\n')
     records = []; failed = False
     with (out/'events.jsonl').open('x') as stream:

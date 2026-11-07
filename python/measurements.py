@@ -200,7 +200,16 @@ def validate_record(record, slot, parity=True):
             raise ValueError('independent CSV gate occupancy mismatch')
     if not close(record['csv_final_net_work_J'], summary['observational_metrics']['net_electrical_work_J']):
         raise ValueError('CSV final work mismatch')
-    if record['identities']['binary_sha256'] != BINARY_SHA256:
+    identity = record['identities']
+    pinned = BINARY_SHA256
+    if identity.get('execution_kind') == 'public_reproduction':
+        from public_provenance import validate_schema
+        request = validate_schema(identity['public_request'])
+        pinned = request['binary_sha256']
+        if (any(identity[k] != request['source'][k] for k in ('source_commit', 'source_manifest_sha256', 'source_files'))
+                or identity['runtime'] != request['runtime']):
+            raise ValueError('record public provenance mismatch')
+    if identity['binary_sha256'] != pinned:
         raise ValueError('record binary mismatch')
 
 
@@ -239,19 +248,29 @@ def finalize(plan, ledger):
             'denominator': len(slots), 'complete': counts['complete'] == len(slots) and not errors,
             'counts': counts, 'ledger_errors': errors, 'slots': slots,
             'numerical_passed': counts['complete'] == len(slots) and not errors and all(s.get('record', {}).get('comparison', {}).get('passed', plan.get('mode', 'replay') == 'replay') for s in slots),
+            'review_required': any(s.get('record', {}).get('comparison', {}).get('review_required', False) for s in slots),
             'ledger_sha256': sha(Path(ledger).read_bytes()) if Path(ledger).exists() else None}
 
 
-def source_identity():
-    commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
-    if subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT, text=True).strip():
+def source_identity(root=ROOT):
+    root = Path(root)
+    commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=root, text=True).strip()
+    if subprocess.check_output(['git', 'status', '--porcelain'], cwd=root, text=True).strip():
         raise ValueError('measurement source must be clean and committed')
-    files = subprocess.check_output(['git', 'ls-files'], cwd=ROOT, text=True).splitlines()
-    hashes = {name: sha((ROOT/name).read_bytes()) for name in files if (ROOT/name).is_file()}
+    files = subprocess.check_output(['git', 'ls-files'], cwd=root, text=True).splitlines()
+    hashes = {name: sha((root/name).read_bytes()) for name in files if (root/name).is_file()}
     return {'source_commit': commit, 'source_manifest_sha256': sha(encoded(hashes)), 'source_files': hashes}
 
 
-def identities(binary, request_path):
+def identities(binary, request_path, public_reproduction=False):
+    if public_reproduction:
+        from public_provenance import validate_request
+        request = validate_request(request_path, binary=binary)
+        return {**request['source'], 'execution_kind': 'public_reproduction',
+                'binary_sha256': request['binary_sha256'], 'runtime': request['runtime'],
+                'request_sha256': sha(Path(request_path).read_bytes()), 'public_request': request,
+                'compiler_provenance': 'Locally supplied executable bytes pinned before launch; compiler/build provenance is not inferred.',
+                'supervision': 'Public identity request is not evidence of guard enforcement.'}
     if sha(Path(binary).read_bytes()) != BINARY_SHA256: raise ValueError('binary identity drift')
     request = checked_json(Path(request_path).read_bytes())
     # Exact private paths/argv stay in immutable private request. Public hashes link them.
@@ -267,6 +286,8 @@ def invoke(binary, slot, directory, identity):
     command = [str(Path(binary).resolve()), 'simulate', '--output', str(output.resolve()), *config_argv(slot['config'])]
     # Persist exact private argv before launch; never put local absolute paths in public metadata.
     write_new(directory / ('command-' + str(slot['index']) + '.json'), command)
+    if sha(Path(binary).read_bytes()) != identity['binary_sha256']:
+        raise ValueError('binary identity drift before simulator launch')
     process = subprocess.run(command, capture_output=True, text=True, timeout=60)
     summary = checked_json((output/'summary.json').read_bytes())
     if process.returncode not in (0, 3) or (process.returncode == 3) != summary['aborted']:
@@ -307,23 +328,30 @@ def compare_sensitivity(record, baseline):
     time_delta = None if m['tracking_settling_time_s'] is None or n['tracking_settling_time_s'] is None else m['tracking_settling_time_s']-n['tracking_settling_time_s']
     time_ok = time_delta is None or abs(time_delta) <= b['config']['Tc'] + 1e-12
     outcomes = {k: {'baseline': b[k], 'fine': a[k], 'same': a[k] == b[k]} for k in ('success', 'aborted', 'tripped', 'excursion')}
+    gate_differences = {g: m['gate_durations_s'][g]-n['gate_durations_s'][g] for g in GATES}
+    events_same = a['events'] == b['events']
     return {'energy': energy, 'settling_status_same': status, 'settling_time_difference_s': time_delta,
             'settling_time_limit_s': b['config']['Tc'], 'settling_time_passed': time_ok,
-            'gate_duration_difference_s': {g: m['gate_durations_s'][g]-n['gate_durations_s'][g] for g in GATES},
-            'legacy_outcomes': outcomes, 'events_same': a['events'] == b['events'],
+            'gate_duration_difference_s': gate_differences,
+            'legacy_outcomes': outcomes, 'events_same': events_same,
+            'review_required': not events_same or any(v != 0 for v in gate_differences.values()),
             'passed': all(v['passed'] for v in energy.values()) and status and time_ok and all(v['same'] for v in outcomes.values())}
 
 
 def run_phase(args, plan):
     output = Path(args.output)
+    identity = identities(args.binary, args.request, getattr(args, 'public_reproduction', False))
     output.mkdir(exist_ok=False)
-    identity = identities(args.binary, args.request)
     write_new(output/'identities.json', identity)
     baseline = None
+    baseline_provenance = None
     if args.mode == 'sensitivity':
         baseline = checked_json(Path(args.baseline).read_bytes())
         if not baseline['complete'] or baseline['denominator'] != 213: raise ValueError('complete replay required')
-        if baseline['slots'][0]['record']['identities']['source_commit'] != identity['source_commit']:
+        baseline_provenance = {'baseline_sha256': sha(Path(args.baseline).read_bytes()),
+                               'data_source_identity': baseline['slots'][0]['record']['identities']}
+        if (baseline['slots'][0]['record']['identities']['source_commit'] != identity['source_commit']
+                and not getattr(args, 'public_reproduction', False)):
             raise ValueError('sensitivity source differs from admitted replay source')
         baseline = {s['id']: s for s in baseline['slots']}
         plan = sensitivity_plan(plan)
@@ -338,7 +366,8 @@ def run_phase(args, plan):
                 if baseline is not None:
                     record['comparison'] = compare_sensitivity(record, baseline[slot['id']])
                 append_event(stream, record)
-                print(json.dumps({'slot': slot['id'], 'status': 'complete', 'comparison': record.get('comparison', {}).get('passed')}), flush=True)
+                print(json.dumps({'slot': slot['id'], 'status': 'complete', 'comparison': record.get('comparison', {}).get('passed'),
+                                  'review_required': record.get('comparison', {}).get('review_required', False)}), flush=True)
                 if baseline is not None and not record['comparison']['passed']:
                     failed = True
                     break  # Preserve raw data and halt for analysis, never retry.
@@ -350,6 +379,8 @@ def run_phase(args, plan):
                 break
     result = finalize(plan, ledger)
     result['numerical_passed'] = not failed and result['complete']
+    if baseline_provenance is not None:
+        result.update(baseline_provenance)
     write_new(output/'results.json', result)
     return 0 if result['complete'] and not failed else 1
 
@@ -367,6 +398,7 @@ def main():
     p.add_argument('mode', choices=('plan', 'replay', 'finalize', 'sensitivity'))
     p.add_argument('--evidence', default='evidence'); p.add_argument('--plan'); p.add_argument('--output', required=True)
     p.add_argument('--binary'); p.add_argument('--request'); p.add_argument('--ledger'); p.add_argument('--baseline')
+    p.add_argument('--public-reproduction', action='store_true', help='pin actual local bytes using a public_provenance request; separately identified new execution')
     args = p.parse_args(); args.output = staged(args.output)
     if args.mode == 'plan':
         write_new(args.output, make_plan(args.evidence)); return 0

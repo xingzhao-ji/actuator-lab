@@ -189,11 +189,23 @@ def test_finalizer_rejects_nonfinite_and_truncated_complete_json(tmp_path):
 
 def test_actual_binary_boundary_argv_metrics_and_audit(tmp_path):
     import os
+    import subprocess
+    from public_provenance import runtime_identity
     m = module(); s = copy.deepcopy(plan()['slots'][0])
     s['config']['ticks'] = 1
     s['config_sha256'] = m.sha(m.encoded(s['config']))
     binary = Path(os.environ['ACTUATOR_CACHE'])/'build/actuator_lab'
-    record, raw = m.invoke(binary, s, tmp_path, {'binary_sha256': m.BINARY_SHA256})
+    # This boundary fixture snapshots actual local bytes even in a dirty checkout.
+    # It is not a production admission request; production still requires clean source.
+    files = subprocess.check_output(['git', 'ls-files'], cwd=ROOT, text=True).splitlines()
+    hashes = {name: m.sha((ROOT/name).read_bytes()) for name in files if (ROOT/name).is_file()}
+    source = {'source_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
+              'source_files': hashes, 'source_manifest_sha256': m.sha(m.encoded(hashes))}
+    request = {'schema_version': 1, 'execution_kind': 'public_reproduction', 'source': source,
+               'binary_sha256': m.sha(binary.read_bytes()), 'runtime': runtime_identity()}
+    identity = {**source, 'execution_kind': 'public_reproduction', 'binary_sha256': request['binary_sha256'],
+                'runtime': request['runtime'], 'public_request': request}
+    record, raw = m.invoke(binary, s, tmp_path, identity)
     m.validate_record(record, s, parity=False)
     assert record['summary']['completed_steps'] == 20
     assert record['summary']['observational_metrics']['tracking_settling_status'] == 'insufficient_horizon'

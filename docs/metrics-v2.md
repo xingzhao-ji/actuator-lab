@@ -69,12 +69,61 @@ before measured claims are added to the README.
 `python/measurements.py plan --output CACHE/fixed-plan.json` reads the exact
 historical frozen-input/result identities and freezes the complete original
 ordered list: 21 named and 192 Monte Carlo slots. No defaults are resampled.
-`replay --plan ... --binary ... --output CACHE/replay --request ...` executes
-that list serially. The request is the externally retained execution provenance;
-production replay requires clean committed source and the accepted binary hash.
-Use an admitted outer supervisor with `ACTUATOR_CACHE` set. Do not nest guards.
-The `metrics-plan`, `metrics-replay` and `metrics-finalize` Makefile targets expose
-these commands; override `GUARD=` only inside an already admitted outer guard.
+The canonical plan retains the historical binary digest as part of its original
+identity; its bytes and all 213 inputs/order stay fixed. Historical strict replay
+(the Python default without `--public-reproduction`) still requires the accepted
+binary and immutable private-runner request. That mode documents the original
+execution, whose measurement source was `d575dc3`; it is not a standalone public
+recipe, and release packaging commits do not recreate that execution identity.
+
+A **new public reproduction** uses `python/public_provenance.py` to pin the actual
+local executable, clean committed source and Python/NumPy/SciPy runtime before
+launch. The JSON request has exactly `schema_version: 1`,
+`execution_kind: public_reproduction`, `source` (commit, manifest digest and tracked
+file hashes), `binary_sha256`, and `runtime` (Python executable digest/version,
+implementation/platform and version/file-inventory digests for NumPy/SciPy plus
+available plotting dependencies). It contains
+no invented private wrapper/guard fields. Replay rechecks the real files before
+launch and records the request with the local identity. A request alone proves
+no resource enforcement or compiler/build provenance. Local compiler/platform
+differences can legitimately fail exact parity; preserve the failure for review,
+without changing tolerances, resampling, or retrying unexplained failures.
+
+From a clean standalone checkout after the README's environment setup, use a
+fresh absolute cache and one numerical thread. The cache parent must exist;
+every output below must be new. The guard creates build/temp directories. All
+commands run at the repository root; `.venv` must already contain requirements
+(with plotting wheels prepared below for report generation). These targets execute
+serially and do not change the bundled `evidence/` files:
+
+```sh
+export ACTUATOR_CACHE="$HOME/.cache/actuator-metrics-reproduction-1"
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
+export NUMEXPR_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1
+mkdir -p "$ACTUATOR_CACHE"
+make -j1 CACHE="$ACTUATOR_CACHE" build
+make -j1 CACHE="$ACTUATOR_CACHE" plots
+export PYTHONPATH="$ACTUATOR_CACHE/plot-site"
+make -j1 CACHE="$ACTUATOR_CACHE" metrics-plan
+make -j1 CACHE="$ACTUATOR_CACHE" metrics-request
+make -j1 CACHE="$ACTUATOR_CACHE" metrics-replay
+make -j1 CACHE="$ACTUATOR_CACHE" metrics-reference
+make -j1 CACHE="$ACTUATOR_CACHE" metrics-sensitivity
+make -j1 CACHE="$ACTUATOR_CACHE" metrics-report
+```
+
+`make plots` uses the README's scoped pinned-wheel producer and requires network
+access; once prepared, all metric phases are offline. `PYTHONPATH` exposes those
+scoped plotting wheels to the request producer and renderer. The request is
+created after build/plot setup and before replay. Keep source/runtime/binary
+unchanged through the phases; requests and outputs refuse overwrite. The public
+Make targets select `--public-reproduction` explicitly. The repository guard
+provides its documented cache/free-space checks; it is not the stronger private
+supervisor used for the accepted study. When using an already admitted outer
+supervisor, invoke direct commands or add `GUARD=` to each Make invocation to
+avoid nesting process sessions. Do not infer the private resource guarantees
+from these public commands. Completed runs retain the same exact legacy-field
+and CSV gates, numerical limits, all failure slots and fixed denominators.
 
 Every completed slot is flushed and fsynced to `events.jsonl` after strict legacy
 summary/trace parity and metric checks, before its disposable raw trace is
@@ -85,6 +134,32 @@ the simulator. Sensitivity has its own 33-slot plan and ledger. Reference replay
 has a nine-slot plan and a separate `--finalize-plan ... --ledger ... --output ...`
 recovery mode. Never overwrite an earlier output or ledger when recovering.
 
+To recover **local outputs** without launching a simulator or solver (including
+after interruption), use the same environment/cache with existing parents:
+
+```sh
+python3 scripts/guard.py .venv/bin/python python/measurements.py finalize \
+  --plan "$ACTUATOR_CACHE/fixed-plan.json" \
+  --ledger "$ACTUATOR_CACHE/replay/events.jsonl" \
+  --output "$ACTUATOR_CACHE/recovered-replay.json"
+python3 scripts/guard.py .venv/bin/python python/measurements.py finalize \
+  --plan "$ACTUATOR_CACHE/sensitivity/plan.json" \
+  --ledger "$ACTUATOR_CACHE/sensitivity/events.jsonl" \
+  --output "$ACTUATOR_CACHE/recovered-sensitivity.json"
+python3 scripts/guard.py .venv/bin/python python/metric_reference.py \
+  --finalize-plan "$ACTUATOR_CACHE/reference/plan.json" \
+  --ledger "$ACTUATOR_CACHE/reference/events.jsonl" \
+  --output "$ACTUATOR_CACHE/recovered-reference.json"
+```
+
+To inspect **bundled historical evidence**, open `evidence/metrics-v2/report.html`
+offline, or recover its bundled ledgers into new cache files. Substitute
+`evidence/metrics-v2/plan.json` + `replay-events.jsonl`,
+`sensitivity-plan.json` + `sensitivity-events.jsonl`, or
+`reference-plan.json` + `reference-events.jsonl` for the three plan/ledger pairs
+above. Recovery never needs a private request or historical executable. It
+reconstructs the data, and does not repeat or renew its measurements.
+
 `python/metric_reference.py` uses independent absolute body/wheel coordinates,
 DOP853 and split terminal-power integrals at rtol 1e-11/atol 1e-12. The historical
 retained CSV inputs are used only after their decompressed hashes match the new
@@ -94,6 +169,34 @@ for all three controllers with exactly four times the original substeps.
 Both phases retain every energy/status/time comparison; failures halt for review.
 `python/metric_report.py` consumes those artifacts without simulation and emits
 standalone offline HTML, a 213-row CSV, and PNG/PDF scientific figures.
+
+Public reference recomputation may also consume the bundled historical replay:
+use the direct reference command with `--public-reproduction`,
+`--replay evidence/metrics-v2/results.json`, a newly produced public `--request`,
+and a new cache `--output`. Its plan distinguishes historical data-source
+identity from current tool/source/runtime identity. Public sensitivity similarly
+records the baseline digest/data identity separately; the default strict mode
+continues to reject a different source commit. For an offline report regenerated
+from the bundled data, pass `--public-reproduction`, the same public request,
+`--replay evidence/metrics-v2/results.json`,
+`--reference evidence/metrics-v2/reference.json`,
+`--sensitivity evidence/metrics-v2/sensitivity.json` and a new cache output to
+`python/metric_report.py`, through the same guard. This is a new report of old
+measurements; its provenance records data hashes/source separately from the
+current renderer. It does not claim a new 213/9/33 execution.
+
+Future sensitivity gate-duration or event-list disagreements set a separate
+`review_required` diagnostic without changing energy/settling tolerances. Report
+generation derives the diagnostic directly even from older records, and refuses
+unqualified success until `--review-disposition FILE.json` provides exactly
+`sensitivity_sha256` (the consumed sensitivity file's SHA256), nonempty `reviewer`
+and `rationale` fields. The full disagreement and disposition remain in report
+provenance and visible report text. All 33 accepted historical comparisons agree
+on these diagnostics and require no disposition; their stored bytes remain
+unchanged. The current Make targets include the 16 native metric cases, four
+additional CLI cases and 33 measurement cases described in the README, plus
+focused public-interface/checkpoint/review fixtures. These are target composition,
+not a fresh combined-suite execution claim.
 
 Commands displayed in public run records are explicitly normalized for
 portability. The immutable exact raw command remains private, linked by SHA256;

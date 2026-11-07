@@ -29,6 +29,20 @@ def aggregate(pairs,kinds=("direct","cascaded")):
 
 def sha(data):return hashlib.sha256(data).hexdigest()
 
+def checkpoint_unchanged(original,named,trials,input_hash):
+    """Preserve typed legacy values and CSV bytes across additive JSON schemas."""
+    if original['input_sha256'] != input_hash:return False
+    excluded={'observational_metrics','summary_sha256','trace_sha256'}
+    def legacy(summary):
+        return json.dumps({k:v for k,v in summary.items() if k not in excluded},sort_keys=True,allow_nan=False)
+    for group,latest,marker in [('named',named,'scenario'),('monte_carlo',trials,'id')]:
+        if len(original[group]) != len(latest):return False
+        for before,after in zip(original[group],latest):
+            if type(before[marker]) is not type(after[marker]) or before[marker] != after[marker]:return False
+            for kind in ('direct','cascaded'):
+                if before[kind]['trace_sha256'] != after[kind]['trace_sha256'] or legacy(before[kind]) != legacy(after[kind]):return False
+    return True
+
 def invoke(binary,options):
     with tempfile.TemporaryDirectory(prefix="experiment-") as folder:
         out=Path(folder)/"run"
@@ -126,12 +140,8 @@ def run_suite(binary,outdir):
     original_path=outdir/"checkpoints/original-paired/results.json"
     if original_path.exists():
         original=json.loads(original_path.read_text())
-        unchanged=original["input_sha256"]==input_hash
-        for group,latest in [("named",named),("monte_carlo",trials)]:
-            for before,after in zip(original[group],latest,strict=True):
-                for kind in ("direct","cascaded"):
-                    for key in ("trace_sha256","summary_sha256"):unchanged=unchanged and before[kind][key]==after[kind][key]
-        require("original_paired_outputs_unchanged",unchanged,{"checkpoint":str(original_path)})
+        require("original_paired_outputs_unchanged",checkpoint_unchanged(original,named,trials,input_hash),
+                {"checkpoint":str(original_path),"contract":"typed legacy fields and exact CSV hashes; additive raw summaries retain separate deterministic hashes"})
     source_files=[p for folder in ("src","include","python","scripts","tests") for p in Path(folder).rglob("*") if p.is_file() and "__pycache__" not in str(p)] + [Path("Makefile")]
     source_hashes={str(p):sha(p.read_bytes()) for p in sorted(source_files)}
     result={"schema_version":1,"input_sha256":input_hash,"binary_sha256":sha(Path(binary).read_bytes()),"source_sha256":source_hashes,
