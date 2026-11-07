@@ -32,3 +32,15 @@ verify: test sanitize
 	$(GUARD) $(PYTHON) python/experiments.py --binary $(BUILD)/actuator_lab --output evidence
 	$(GUARD) $(PYTHON) python/report.py evidence
 	$(GUARD) $(PYTHON) scripts/manifest.py
+
+# Additive metrics only. A versioned plan must be generated before measurement.
+# In externally supervised executions override GUARD= to avoid nested guards.
+.PHONY: metrics-plan metrics-replay metrics-finalize
+METRICS_PLAN ?= $(CACHE)/fixed-plan.json
+METRICS_OUTPUT ?= $(CACHE)/replay
+metrics-plan:
+	$(GUARD) $(PYTHON) python/measurements.py plan --output $(METRICS_PLAN)
+metrics-replay:
+	$(GUARD) $(PYTHON) python/measurements.py replay --plan $(METRICS_PLAN) --binary $(BUILD)/actuator_lab --output $(METRICS_OUTPUT) --request $(METRICS_REQUEST)
+metrics-finalize:
+	$(GUARD) $(PYTHON) python/measurements.py finalize --plan $(METRICS_PLAN) --ledger $(METRICS_OUTPUT)/events.jsonl --output $(METRICS_OUTPUT)/recovered-results.json

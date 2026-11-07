@@ -62,3 +62,42 @@ Private resource supervisors and receipts are deliberately outside the public
 source contract. The separate measurement extension must pass fixed-cohort exact
 legacy parity, independent gross-energy reference and resolution sensitivity
 before measured claims are added to the README.
+
+## Additive replay and offline recovery
+
+`python/measurements.py plan --output CACHE/fixed-plan.json` reads the exact
+historical frozen-input/result identities and freezes the complete original
+ordered list: 21 named and 192 Monte Carlo slots. No defaults are resampled.
+`replay --plan ... --binary ... --output CACHE/replay --request ...` executes
+that list serially. The request is the externally retained execution provenance;
+production replay requires clean committed source and the accepted binary hash.
+Use an admitted outer supervisor with `ACTUATOR_CACHE` set. Do not nest guards.
+The `metrics-plan`, `metrics-replay` and `metrics-finalize` Makefile targets expose
+these commands; override `GUARD=` only inside an already admitted outer guard.
+
+Every completed slot is flushed and fsynced to `events.jsonl` after strict legacy
+summary/trace parity and metric checks, before its disposable raw trace is
+removed. A failed slot retains its raw files and halts without retry. The
+finalizer reconstructs all fixed slots, including missing/error/invalid statuses;
+it preserves a malformed or unterminated final record explicitly. It never runs
+the simulator. Sensitivity has its own 33-slot plan and ledger. Reference replay
+has a nine-slot plan and a separate `--finalize-plan ... --ledger ... --output ...`
+recovery mode. Never overwrite an earlier output or ledger when recovering.
+
+`python/metric_reference.py` uses independent absolute body/wheel coordinates,
+DOP853 and split terminal-power integrals at rtol 1e-11/atol 1e-12. The historical
+retained CSV inputs are used only after their decompressed hashes match the new
+fixed replay. Original accepted-substep endpoints determine independent tracking
+checks. `measurements.py sensitivity` uses all named slots and MC IDs 0,21,42,63
+for all three controllers with exactly four times the original substeps.
+Both phases retain every energy/status/time comparison; failures halt for review.
+`python/metric_report.py` consumes those artifacts without simulation and emits
+standalone offline HTML, a 213-row CSV, and PNG/PDF scientific figures.
+
+Commands displayed in public run records are explicitly normalized for
+portability. The immutable exact raw command remains private, linked by SHA256;
+absolute local paths and private supervisors are excluded from public metadata.
+The original accepted experiment was October 2026. Extension execution timestamps
+and later publication verification are separate and do not renew old experiments.
+The historical Task1 compiler identity was observed only after its builds; pinned
+binary reuse and prospective compiler gates do not establish earlier provenance.
