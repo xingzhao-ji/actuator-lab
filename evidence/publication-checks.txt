@@ -1,6 +1,6 @@
 Standalone publication check, 2026-11-06
 Fresh Python 3.12 venv from requirements.txt; make -j1 test sanitize.
-The runtime path below is redacted. Full historical experiment and independent-review matrix were not rerun.
+The runtime path below is redacted. Full historical experiment matrix was not rerun.
 
 python3 scripts/guard.py clang++ -std=c++20 -O2 -Wall -Wextra -Werror -Iinclude src/model.cpp src/control.cpp src/simulation.cpp src/main.cpp -o <publication-runtime>/cache/build/actuator_lab
 python3 scripts/guard.py clang++ -std=c++20 -O2 -Wall -Wextra -Werror -Iinclude src/model.cpp src/control.cpp src/simulation.cpp tests/core_tests.cpp -o <publication-runtime>/cache/build/core_tests

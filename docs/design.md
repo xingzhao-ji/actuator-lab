@@ -2,9 +2,9 @@
 
 ## Purpose and scope
 
-Build an executed C++20 numerical ODE and electromechanical modeling experiment. Expose assumptions and failed operating regimes. This is the original technical design, with standalone packaging wording; the [acceptance addendum](acceptance-addendum.md) distinguishes delivered metrics from the original plan.
+Build an executed C++20 numerical ODE and electromechanical modeling experiment. Expose assumptions and failed operating regimes. This is the original technical design, with standalone packaging wording; the [scope addendum](acceptance-addendum.md) distinguishes delivered metrics from the original plan.
 
-The artifact is a single-axis rigid body carrying one coaxial reaction wheel driven by an idealized brushed-DC-equivalent actuator. It includes winding inductance, resistance, back EMF, equal-and-opposite motor/bearing torque, sampled controllers, voltage saturation, supervisory gates, deliberate faults and an external disturbance torque. Parameters are synthetic educational values, not measured or validated hardware specifications. No flight-grade, hardware-in-loop, spacecraft-fidelity, reinforcement-learning or general electromagnetism-mastery claim follows.
+The artifact is a single-axis rigid body carrying one coaxial reaction wheel driven by an idealized brushed-DC-equivalent actuator. It includes winding inductance, resistance, back EMF, equal-and-opposite motor/bearing torque, sampled controllers, voltage saturation, supervisory gates, deliberate faults and an external disturbance torque. Parameters are synthetic educational values, not measured or validated hardware specifications. No flight-grade, hardware-in-loop, spacecraft-fidelity, reinforcement-learning or general electromagnetics claim follows.
 
 Three alternatives were considered: a pure software animation would not establish numerical correctness; a full three-axis/flight stack would add unvalidated geometry and hardware complexity; the selected one-axis coupled electrical/mechanical model supports independent analytic, conservation and integration checks with manageable assumptions.
 
@@ -102,4 +102,3 @@ Input/config caps: finite numeric fields; horizon at most 120 s; controller inte
 Retain full traces for the named cases and at most four representative Monte Carlo trials. Keep every Monte Carlo input, outcome and event summary; transient per-trial traces may be discarded after metrics are computed and can be regenerated from the recorded inputs. This keeps retained artifacts below the 20 MiB cap without hiding failed trials.
 
 
-A separate AI reviewer inspected the final physics, source and historical results. [Review evidence](independent-employer-review.md) distinguishes source checks, executed experiments, synthetic uncertainty and unverified hardware/personal qualifications.

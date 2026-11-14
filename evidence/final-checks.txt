@@ -1,7 +1,7 @@
-python3 scripts/guard.py clang++ -std=c++20 -O2 -Wall -Wextra -Werror -Iinclude src/model.cpp src/control.cpp src/simulation.cpp tests/core_tests.cpp -o $HOME/.cache/job-apps-runtime/actuator-lab/build/core_tests
-python3 scripts/guard.py clang++ -std=c++20 -O2 -Wall -Wextra -Werror -Iinclude src/model.cpp src/control.cpp src/simulation.cpp tests/control_tests.cpp -o $HOME/.cache/job-apps-runtime/actuator-lab/build/control_tests
-python3 scripts/guard.py clang++ -std=c++20 -O2 -Wall -Wextra -Werror -Iinclude src/model.cpp src/control.cpp src/simulation.cpp tests/simulation_tests.cpp -o $HOME/.cache/job-apps-runtime/actuator-lab/build/simulation_tests
-python3 scripts/guard.py $HOME/.cache/job-apps-runtime/actuator-lab/build/core_tests
+python3 scripts/guard.py clang++ -std=c++20 -O2 -Wall -Wextra -Werror -Iinclude src/model.cpp src/control.cpp src/simulation.cpp tests/core_tests.cpp -o $HOME/.cache/actuator-lab/build/core_tests
+python3 scripts/guard.py clang++ -std=c++20 -O2 -Wall -Wextra -Werror -Iinclude src/model.cpp src/control.cpp src/simulation.cpp tests/control_tests.cpp -o $HOME/.cache/actuator-lab/build/control_tests
+python3 scripts/guard.py clang++ -std=c++20 -O2 -Wall -Wextra -Werror -Iinclude src/model.cpp src/control.cpp src/simulation.cpp tests/simulation_tests.cpp -o $HOME/.cache/actuator-lab/build/simulation_tests
+python3 scripts/guard.py $HOME/.cache/actuator-lab/build/core_tests
 PASS literal coupled derivatives and signed work
 PASS co-rotation has no back EMF or bearing torque
 PASS zero input rest stays stationary
@@ -13,7 +13,7 @@ PASS wrong reaction torque mutant is detected
 PASS coupled integrated work balance
 PASS parameter and resolution admission
 RESULT 10 passed 0 failed
-python3 scripts/guard.py $HOME/.cache/job-apps-runtime/actuator-lab/build/control_tests
+python3 scripts/guard.py $HOME/.cache/actuator-lab/build/control_tests
 PASS positive body error commands positive wheel torque
 PASS both voltage rails and current demand bounded
 PASS speed gate inhibits outward torque but allows braking
@@ -24,7 +24,7 @@ PASS hard current trip latches zero terminal command and freezes PI
 PASS relative speed, not absolute wheel speed, determines hard trip
 PASS feedforward ablation removes current feedback and PI update only
 RESULT 9 passed 0 failed
-python3 scripts/guard.py $HOME/.cache/job-apps-runtime/actuator-lab/build/simulation_tests
+python3 scripts/guard.py $HOME/.cache/actuator-lab/build/simulation_tests
 PASS pulse begins and ends exactly on sampled boundary
 PASS voltage failure and stuck driver ordering
 PASS complete event schedule participates in admission
@@ -37,8 +37,8 @@ RESULT 8 passed 0 failed
 python3 scripts/guard.py <historical-python> -m pytest -q -p no:cacheprovider tests
 ................................                                         [100%]
 32 passed in 0.84s
-python3 scripts/guard.py clang++ -std=c++20 -O2 -Wall -Wextra -Werror -Iinclude -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer src/model.cpp src/control.cpp src/simulation.cpp tests/core_tests.cpp -o $HOME/.cache/job-apps-runtime/actuator-lab/build/core_sanitized
-python3 scripts/guard.py $HOME/.cache/job-apps-runtime/actuator-lab/build/core_sanitized
+python3 scripts/guard.py clang++ -std=c++20 -O2 -Wall -Wextra -Werror -Iinclude -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer src/model.cpp src/control.cpp src/simulation.cpp tests/core_tests.cpp -o $HOME/.cache/actuator-lab/build/core_sanitized
+python3 scripts/guard.py $HOME/.cache/actuator-lab/build/core_sanitized
 PASS literal coupled derivatives and signed work
 PASS co-rotation has no back EMF or bearing torque
 PASS zero input rest stays stationary
@@ -50,8 +50,8 @@ PASS wrong reaction torque mutant is detected
 PASS coupled integrated work balance
 PASS parameter and resolution admission
 RESULT 10 passed 0 failed
-python3 scripts/guard.py clang++ -std=c++20 -O2 -Wall -Wextra -Werror -Iinclude -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer src/model.cpp src/control.cpp src/simulation.cpp tests/simulation_tests.cpp -o $HOME/.cache/job-apps-runtime/actuator-lab/build/simulation_sanitized
-python3 scripts/guard.py $HOME/.cache/job-apps-runtime/actuator-lab/build/simulation_sanitized
+python3 scripts/guard.py clang++ -std=c++20 -O2 -Wall -Wextra -Werror -Iinclude -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer src/model.cpp src/control.cpp src/simulation.cpp tests/simulation_tests.cpp -o $HOME/.cache/actuator-lab/build/simulation_sanitized
+python3 scripts/guard.py $HOME/.cache/actuator-lab/build/simulation_sanitized
 PASS pulse begins and ends exactly on sampled boundary
 PASS voltage failure and stuck driver ordering
 PASS complete event schedule participates in admission
@@ -61,7 +61,7 @@ PASS stuck voltage overrides trip without clipping state
 PASS short trace cannot pass terminal window
 PASS nonphysical input rejected before integration
 RESULT 8 passed 0 failed
-python3 scripts/guard.py <historical-python> python/experiments.py --binary $HOME/.cache/job-apps-runtime/actuator-lab/build/actuator_lab --output evidence
+python3 scripts/guard.py <historical-python> python/experiments.py --binary $HOME/.cache/actuator-lab/build/actuator_lab --output evidence
 Smooth convergence checked; running seven named cases with original controllers and follow-up feedforward ablation.
 Named case nominal: direct success=True, cascaded success=True, feedforward success=True
 Named case pulse: direct success=False, cascaded success=True, feedforward success=True

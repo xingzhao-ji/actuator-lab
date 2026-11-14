@@ -16,12 +16,6 @@
       "published_sha256": "c14301f0fbda4bc87d112d06d2a6fb983c506d680054f606ebb32b913fcf96c0"
     },
     {
-      "file": "evidence/independent-review-tests.txt",
-      "reason": "historical log path redaction only; output/test results unchanged",
-      "source_sha256": "983ddea19430f675a3f8af19bd3b516591e91f284230ec323f3799e29de42254",
-      "published_sha256": "d6b67ac9f7c6f5d8e29c44bbbfd4739da267954c7e3999513769a20aa2d7e345"
-    },
-    {
       "file": "python/report.py",
       "reason": "standalone reproduction command only; report numerical content and embedded figures unchanged",
       "source_sha256": "2bc7c7a84260ce18bf302c15d7bae64d7b6c3b98e7d235c0928cab4bcc24036f",
@@ -35,31 +29,25 @@
     },
     {
       "file": "docs/derivation.md",
-      "reason": "remove private job-qualification framing",
+      "reason": "remove private planning notes",
       "source_sha256": "ed10abfd3a096379945bb9f09a40f6d171243326d9565e20c9637b59fdab699f",
       "published_sha256": "9d3160cbebd57b3458a230b6aa259e641bffee6a91a4eae9b981202d1685aa22"
     },
     {
       "file": "docs/design.md",
-      "reason": "remove internal planning and job references, adapt setup, and disclose planned-versus-delivered metrics",
+      "reason": "remove internal planning references, adapt setup, and disclose planned-versus-delivered metrics",
       "source_sha256": "e4b47c3650478f27caf57e656e8a8d947ed31c38379232e90acd8ab41ce51b02",
       "published_sha256": "2697561956246d5c44db8ef1b606bf239799120f50b71c84b65ab7da5f4cf43f"
     },
     {
-      "file": "docs/independent-employer-review.md",
-      "reason": "retain technical review; remove private hiring comparison; label AI review and historical commands",
-      "source_sha256": "65cb0f965310fe6cd0c77721e9aca1516e8390e1c4dc35c5b7e7b6bc002074dc",
-      "published_sha256": "ce12193db65e524a15cb8284e37bf469534b8a7ab58ac22aeb38e07c9f722bf6"
-    },
-    {
       "file": "docs/acceptance-addendum.md",
-      "reason": "remove private qualification scores and clarify separate historical versus publication provenance",
+      "reason": "remove private planning scores and clarify separate historical versus publication provenance",
       "source_sha256": "8befb98ef728a57a5bb99a4f4d8d8fd0254c62449a5d153a9040f3def2dc6265",
       "published_sha256": "4f986974edb362e75df8eea9d4cbcf6c3481711c5350622467cd14bb402740d0"
     },
     {
       "file": "README.md",
-      "reason": "standalone installation/testing instructions, fresh versus historical evidence distinction, remove private portfolio workflow links",
+      "reason": "standalone installation/testing instructions, fresh versus historical evidence distinction, remove private workflow links",
       "source_sha256": "0805ee5405a1dd83915412fff13cfb513d6eed697c8420852fad0cb7dd993dbb",
       "published_sha256": "4140b8f19df12efee5f92ffb6b484511dcecc9224df76d7251dc132a79c9452c"
     },

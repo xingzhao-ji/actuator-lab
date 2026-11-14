@@ -7,7 +7,7 @@ import json
 import os
 from pathlib import Path
 import sys
-cache=Path(os.environ.get("ACTUATOR_CACHE",Path.home()/".cache/job-apps-runtime/actuator-lab"))
+cache=Path(os.environ.get("ACTUATOR_CACHE",Path.home()/".cache/actuator-lab"))
 sys.path.insert(0,str(cache/"plot-site"))
 import matplotlib
 matplotlib.use("Agg")

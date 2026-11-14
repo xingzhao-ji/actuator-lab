@@ -1,6 +1,6 @@
 # Coordinates, power balance and numerical oracles
 
-This is a synthetic educational model, not an identified motor or qualified spacecraft model. It exercises a narrow numerical ODE and electromechanical example and does not establish general EM expertise or personal mastery.
+This is a synthetic educational model, not an identified motor or qualified spacecraft model. It exercises a narrow numerical ODE and electromechanical example and does not establish general EM expertise.
 
 ## Physical convention and dimensions
 

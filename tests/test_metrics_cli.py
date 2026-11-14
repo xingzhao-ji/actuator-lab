@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 import subprocess
 import pytest
-BINARY = Path(os.environ.get('ACTUATOR_CACHE', Path.home()/'.cache/job-apps-runtime/actuator-lab'))/'build/actuator_lab'
+BINARY = Path(os.environ.get('ACTUATOR_CACHE', Path.home()/'.cache/actuator-lab'))/'build/actuator_lab'
 GATES = ('speed_gate', 'current_clamp', 'voltage_clamp', 'trip')
 def run(path, *args):
     proc = subprocess.run([str(BINARY), 'simulate', '--output', str(path), *map(str,args)], capture_output=True, text=True, timeout=15)

@@ -2,7 +2,6 @@
 
 The October 2026 original evidence is unchanged. These sidecars record the
 November 7, 2026 UTC replay and independent checks (November 6 local time).
-Publication checks and independent review are separate later actions.
 
 - `plan.json`: the immutable 213-slot ordered historical configuration list.
 - `replay-events.jsonl` and `results.json`: flushed replay audit and complete
@@ -17,7 +16,7 @@ Publication checks and independent review are separate later actions.
 - `resource-summary.json`: every successful and failed owned extension attempt,
   resource observations, private raw receipt/request hashes, and compiler limits.
 - `provenance.json`: executed renderer identity and explicit prose-only removal
-  of a private qualification identifier after rendering, with before/after hashes.
+  of a private identifier after rendering, with before/after hashes.
 - `manifest.json`: exact final file sizes and hashes; excludes itself.
 
 Simulator commands displayed in records are normalized for portability; exact
@@ -27,5 +26,5 @@ change numerical source or measured artifacts. Final Git history records them.
 
 Legacy success and endpoint-observed tracking settling are distinct. All frozen
 negative outcomes remain. The artifact is a synthetic one-axis, agent-assisted
-numerical study, without continuous-time/hardware/battery-efficiency validation,
-sole human authorship, personal mastery, or employer endorsement claims.
+numerical study, without continuous-time/hardware/battery-efficiency validation
+claims.

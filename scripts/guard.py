@@ -7,7 +7,7 @@ import subprocess
 import sys
 import time
 
-CACHE = Path(os.environ.get("ACTUATOR_CACHE", Path.home() / ".cache/job-apps-runtime/actuator-lab"))
+CACHE = Path(os.environ.get("ACTUATOR_CACHE", Path.home() / ".cache/actuator-lab"))
 LIMIT = 200 * 1024**2
 FLOOR = 2 * 1024**3
 

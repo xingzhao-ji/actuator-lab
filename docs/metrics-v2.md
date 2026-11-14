@@ -4,8 +4,7 @@ This additive measurement extension completes the original requested settling,
 command-gate occupancy and gross terminal-energy metrics. Original evidence,
 experiment dates, outcomes and acceptance documents remain historical evidence.
 The extension's 213-run replay, parity and numerical checks are separately dated
-measurements reported below. Independent review and publication are separate
-acceptance steps.
+measurements reported below.
 
 Each CLI `summary.json` gains `observational_metrics`. Existing summary fields and
 CSV columns retain their meaning. The nine physical/work/impulse states, control

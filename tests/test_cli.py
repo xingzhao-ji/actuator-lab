@@ -4,7 +4,7 @@ from pathlib import Path
 import subprocess
 import pytest
 
-BINARY = Path(os.environ.get("ACTUATOR_CACHE", Path.home()/".cache/job-apps-runtime/actuator-lab"))/"build/actuator_lab"
+BINARY = Path(os.environ.get("ACTUATOR_CACHE", Path.home()/".cache/actuator-lab"))/"build/actuator_lab"
 
 def run(output, *args):
     return subprocess.run([str(BINARY),"simulate","--output",str(output),*map(str,args)],capture_output=True,text=True,timeout=15)

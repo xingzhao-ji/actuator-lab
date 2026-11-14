@@ -71,11 +71,9 @@ Parameters and forcing are finite and bounded. CLI limits include a 120 s horizo
 
 The model uses linear resistance/inductance/back EMF, relative viscous friction and a common axis. It excludes 3D attitude dynamics, switching electronics, temperature-dependent parameters, field/finite-element EM, sensor estimation/noise, physical I/O and flight certification. Zero voltage means closed terminals, not an open circuit. A stuck driver overrides the commanded safety inhibit.
 
-AI-assisted source/evidence does not establish personal expertise. To make this useful in interviews, independently derive the power cancellation, explain why wheel bias causes direct-controller offset, reproduce one failed case, and change a physical assumption while preserving independently checked invariants. The project can support a bounded claim about implementing and verifying an electromechanical simulation once you can explain and maintain it.
+[Design](docs/design.md) · [scope and deviations](docs/acceptance-addendum.md) · [publication provenance](docs/publication-provenance.json)
 
-[Design](docs/design.md) · [accepted scope and deviations](docs/acceptance-addendum.md) · [independent AI-assisted review](docs/independent-employer-review.md) · [publication provenance](docs/publication-provenance.json)
-
-The review was performed by a separate AI agent, not an employer or certification body. No project license has been added. External libraries retain their own terms; the notice for DejaVu font subsets embedded in the generated PDFs is included in [third-party notices](THIRD_PARTY_NOTICES.md).
+No project license has been added. External libraries retain their own terms; the notice for DejaVu font subsets embedded in the generated PDFs is included in [third-party notices](THIRD_PARTY_NOTICES.md).
 
 ## Original measurement completion — November 2026
 
@@ -94,8 +92,8 @@ Monte Carlo success is direct **0/64**, cascaded **64/64**, feedforward **10/64*
 The new tracking-settling counts happen to match those counts on this cohort;
 the metrics have separate definitions. Feedforward remains a post-observation
 ablation. These endpoint-observed synthetic measurements do not establish
-continuous-time safety, hardware performance, battery recovery efficiency, or
-personal mastery. Historical compiler identity was observed after Task1 builds;
+continuous-time safety, hardware performance or battery recovery efficiency. Historical compiler identity was observed after Task1 builds;
 the tested binary was hash-pinned for the new replay, without claiming earlier
-compiler provenance. This agent-assisted extension remains subject to independent
-artifact review and separate publication checks.
+compiler provenance.
+
+Built with AI coding tools (Claude Code and Codex CLI); I reviewed and tested the result.
